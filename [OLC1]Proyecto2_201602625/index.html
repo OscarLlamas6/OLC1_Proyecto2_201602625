@@ -1,0 +1,195 @@
+
+<html> 
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">    
+        <link rel="stylesheet" href="styles.css">
+        <script src="tags.js"></script>
+        <title>INTERFAZ</title>
+        <link href="codemirror/lib/codemirror.css" rel="stylesheet">
+        <script src="codemirror/lib/codemirror.js"></script>
+        <script src="codemirror/mode/clike/clike.js"></script>
+        <link href="codemirror/theme/midnight.css" rel="stylesheet">
+        <link href="codemirror/theme/cobalt.css" rel="stylesheet">
+    </head> 
+    <body> 
+       <div class="editor1"> 
+            <div>
+                <div class="componente">
+                    <div class="dropdown">
+                        <button onclick="Menu()" class="dropbtn">Menú</button>
+                        <div id="myDropdown1" class="dropdown-content">
+                          <a class="dropitem" onclick="Abrir()">Abrir</a>
+                          <a class="dropitem" onclick="Nuevo()">Nuevo</a>
+                          <a class="dropitem" onclick="Guardar()">Guardar</a>
+                          <a class="dropitem" onclick="GuardarComo()">Guardar como...</a>
+                        </div>
+                    </div> 
+                </div>
+                <div class="componente">
+                    <div class="dropdown">
+                        <button onclick="Descargar()" class="dropbtn">Descargar</button>
+                        <div id="myDropdown2" class="dropdown-content">
+                          <a class="dropitem" onclick="DescargarAmbos()">Ambos</a>
+                          <a class="dropitem" onclick="DescargarJS()">JavaScript</a>
+                          <a class="dropitem" onclick="DescargarPython()">Python</a>
+                        </div>
+                    </div> 
+                </div>
+                <div class="componente2">
+                    <label class="label success">Carne: 201602625</label>
+                </div>  
+            </div>
+            <div class="editores">
+                <!-- INICIO TAGS -->
+                 <!-- Tab links -->
+                <div class="tab">
+                    <button class="tablinks" onclick="openTag(event, 'p1')">Pagina 1</button>
+                    <button class="tablinks" onclick="openTag(event, 'p2')">Pagina 2</button>
+                    <button class="tablinks" onclick="openTag(event, 'p3')">Pagina 3</button>
+                    <button class="tablinks" onclick="openTag(event, 'p4')">Pagina 4</button>
+                </div>
+                <!-- Tab content -->
+                <div id="p1" class="tabcontent">
+                    <!-- EDITOR 1 -->
+                    <textarea id="editor"></textarea>
+                    <script> 
+                    
+                        var editor = CodeMirror.fromTextArea
+                        (document.getElementById('editor'),{
+                            mode: "text/x-java",
+                            theme: "midnight",
+                            lineNumbers: true,
+                            fixedGutter: false,
+                            autoRefresh:true
+                        });
+
+                        editor.setSize(850, 650);
+                        editor.refresh();
+                    </script>
+
+                    <span>
+                        <button class="button1" onclick="showCode()">TRADUCIR</button>
+                    </span>   
+                    <!-- FIN EDITOR 1 -->                 
+                </div>                   
+                <div id="p2" class="tabcontent">
+                    <!-- EDITOR 2 -->
+                    <textarea id="editor2"></textarea>
+                    <script> 
+                    
+                        var editor2 = CodeMirror.fromTextArea
+                        (document.getElementById('editor2'),{
+                            mode: "text/x-java",
+                            theme: "midnight",
+                            lineNumbers: true,
+                            fixedGutter: false,
+                            autoRefresh:true
+                        });
+
+                        editor2.setSize(850, 650);
+                        editor2.refresh();
+                    </script>
+                    <span>
+                        <button class="button2" onclick="showCode2()">TRADUCIR</button>
+                    </span>
+                    <!-- FIN EDITOR 2 -->
+                </div>
+                <div id="p3" class="tabcontent">
+                    <!-- EDITOR 3 -->
+                    <textarea id="editor3"></textarea>
+                    <script> 
+                    
+                        var editor3 = CodeMirror.fromTextArea
+                        (document.getElementById('editor3'),{
+                            mode: "text/x-java",
+                            theme: "midnight",
+                            lineNumbers: true,
+                            fixedGutter: false,
+                            autoRefresh:true
+                        });
+
+                        editor3.setSize(850, 650);
+                        editor3.refresh();
+                    </script>
+                    <span>
+                        <button class="button3" onclick="showCode3()">TRADUCIR</button>
+                    </span>
+                    <!-- FIN EDITOR 3 -->
+                </div> 
+                <div id="p4" class="tabcontent">
+                    <!-- EDITOR 4 -->
+                    <textarea id="editor4"></textarea>
+                    <script> 
+                    
+                        var editor4 = CodeMirror.fromTextArea
+                        (document.getElementById('editor4'),{
+                            mode: "text/x-java",
+                            theme: "midnight",
+                            lineNumbers: true,
+                            fixedGutter: false,
+                            autoRefresh:true
+                        });
+
+                        editor4.setSize(850, 650);
+                        editor4.refresh();
+                    </script>
+                    <span>
+                        <button class="button4" onclick="showCode4()">TRADUCIR</button>
+                    </span>
+                    <!-- FIN EDITOR 4 -->
+                </div> 
+
+                <script>DefaultTag('p1');</script>
+               <!-- FIN TAGS -->
+            </div>  
+       </div> 
+        <div class="consolas">
+            <div class="labelConsola"><label class="label info">Consola JS</label></div>
+            <div class="consola">
+                <!-- CONSOLA JS -->
+                <textarea id="consolaJS"></textarea>
+                <script>               
+                    var consolaJS = CodeMirror.fromTextArea
+                    (document.getElementById('consolaJS'),{
+                        theme: "cobalt",
+                        lineNumbers: false,
+                        fixedGutter: false,
+                        autoRefresh: true,
+                        readOnly: true,
+                        readOnly: "nocursor"
+                    });
+
+                    consolaJS.setSize(850, 300);
+                    consolaJS.setValue("Errores traduccion JS")
+                    consolaJS.refresh();
+                </script>
+                <!-- FIN CONSOLA JS -->
+            </div>
+            <div class="labelConsola"><label class="label info">Consola Python</label></div>
+            <div class="consola">
+                <!-- CONSOLA Python -->
+                <textarea id="consolaPython"></textarea>
+                <script>               
+                    var consolaPython = CodeMirror.fromTextArea
+                    (document.getElementById('consolaPython'),{
+                        theme: "cobalt",
+                        lineNumbers: false,
+                        fixedGutter: false,
+                        autoRefresh: true,
+                        readOnly: true,
+                        readOnly: "nocursor"
+                    });
+
+                    consolaPython.setSize(850, 300);
+                    consolaPython.setValue("Errores traduccion Python")
+                    consolaPython.refresh();
+                </script>
+                <!-- FIN CONSOLA JS -->
+            </div>
+            <div>
+            </div>  
+        </div>                         
+    </body> 
+ </html> 
+ 
