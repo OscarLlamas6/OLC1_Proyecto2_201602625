@@ -1,0 +1,115 @@
+var tab = 1;
+
+var editor = CodeMirror.fromTextArea
+(document.getElementById('editor'),{
+    mode: "text/x-java",
+    theme: "midnight",
+    lineNumbers: true,
+    fixedGutter: false,
+    autoRefresh:true
+});
+
+editor.setSize(850, 650);
+editor.refresh();
+
+var editor2 = CodeMirror.fromTextArea
+(document.getElementById('editor2'),{
+    mode: "text/x-java",
+    theme: "midnight",
+    lineNumbers: true,
+    fixedGutter: false,
+    autoRefresh:true
+});
+
+editor2.setSize(850, 650);
+editor2.refresh();
+
+var editor3 = CodeMirror.fromTextArea
+(document.getElementById('editor3'),{
+    mode: "text/x-java",
+    theme: "midnight",
+    lineNumbers: true,
+    fixedGutter: false,
+    autoRefresh:true
+});
+
+editor3.setSize(850, 650);
+editor3.refresh();
+
+var editor4 = CodeMirror.fromTextArea
+(document.getElementById('editor4'),{
+    mode: "text/x-java",
+    theme: "midnight",
+    lineNumbers: true,
+    fixedGutter: false,
+    autoRefresh:true
+});
+
+editor4.setSize(850, 650);
+editor4.refresh();
+
+function SetearUno(){
+    tab = 1;
+}
+
+function SetearDos(){
+    tab = 2;
+}
+
+function SetearTres(){
+    tab = 3;
+}
+
+function SetearCuatro(){
+    tab = 4;
+}
+
+
+const realFileBtn = document.getElementById("real-file");
+const customBtn = document.getElementById("botonAbrir");
+
+customBtn.addEventListener("click", function() {
+    realFileBtn.click();
+  });
+  
+realFileBtn.addEventListener("change", function() {
+    if (this.files && this.files[0]) {
+        var myFile = this.files[0];
+        var reader = new FileReader();
+
+        reader.fileName = myFile.name;
+        reader.addEventListener('load', function (e) {
+            if(tab==1){
+                editor.setValue(e.target.result);
+            } else if(tab==2){
+                editor2.setValue(e.target.result);
+            } else if(tab==3){
+                editor3.setValue(e.target.result);
+            } else if(tab==4){
+                editor4.setValue(e.target.result);
+            }
+        });
+        
+        reader.readAsBinaryString(myFile);
+        
+      }  
+});
+
+function GenerarDescarga(){
+    if(tab==1){
+        download(editor.getValue(),"Doc.JAVA","text/JAVA");
+    } else if(tab==2){
+        download(editor2.getValue(),"Doc.JAVA","text/JAVA");
+    } else if(tab==3){
+        download(editor3.getValue(),"Doc.JAVA","text/JAVA");
+    } else if(tab==4){
+        download(editor4.getValue(),"Doc.JAVA","text/JAVA");
+    }
+}
+
+function download(text, name, type) {
+    var a = document.getElementById("a");
+    var file = new Blob([text], {type: type});
+    a.href = URL.createObjectURL(file);
+    a.download = name;
+  }

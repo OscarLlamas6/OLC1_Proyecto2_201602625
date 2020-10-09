@@ -1,0 +1,115 @@
+
+<html> 
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">    
+        <link rel="stylesheet" href="Css/styles.css">
+        <script src="Js/Tabs.js"></script>
+        <title>Traductor JAVA | By Oscar Llamas</title>
+        <link href="codemirror/lib/codemirror.css" rel="stylesheet">
+        <script src="codemirror/lib/codemirror.js"></script>
+        <script src="codemirror/mode/clike/clike.js"></script>
+        <link href="codemirror/theme/midnight.css" rel="stylesheet">
+        <link href="codemirror/theme/cobalt.css" rel="stylesheet">
+    </head> 
+    <body> 
+       <div class="editor1"> 
+            <div>
+                <div class="componente">
+                    <div class="dropdown">
+                        <button onclick="Menu()" class="dropbtn">Menú</button>
+                        <div id="myDropdown1" class="dropdown-content">
+                            <input type="file" id="real-file" hidden="hidden" />
+                            <a class="dropitem" id="botonAbrir">Abrir</a>
+                            <a class="dropitem" onclick="Nuevo()">Nuevo</a>
+                            <a class="dropitem" onclick="Guardar()">Guardar</a>
+                            <a class="dropitem" id="a" onclick="GenerarDescarga()">Guardar como...</a>
+                        </div>
+                    </div> 
+                </div>
+                <div class="componente">
+                    <div class="dropdown">
+                        <button onclick="Descargar()" class="dropbtn">Descargar</button>
+                        <div id="myDropdown2" class="dropdown-content">
+                          <a class="dropitem" onclick="DescargarAmbos()">Ambos</a>
+                          <a class="dropitem" onclick="DescargarJS()">JavaScript</a>
+                          <a class="dropitem" onclick="DescargarPython()">Python</a>
+                        </div>
+                    </div> 
+                </div>
+                <div class="componente2">
+                    <label class="label success">Carne: 201602625</label>
+                </div>  
+            </div>
+            <div class="editores">
+                <!-- INICIO TAGS -->
+                 <!-- Tab links -->
+                <div class="tab">
+                    <button id='pagina1' class="tablinks" onclick="openTag(event, 'p1'); SetearUno()">Pagina 1</button>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function(event) { 
+                          document.getElementById("pagina1").click();
+                       });
+                      </script>
+                    <button class="tablinks" onclick="openTag(event, 'p2'); SetearDos()">Pagina 2</button>
+                    <button class="tablinks" onclick="openTag(event, 'p3'); SetearTres()">Pagina 3</button>
+                    <button class="tablinks" onclick="openTag(event, 'p4'); SetearCuatro()">Pagina 4</button>
+                </div>
+                <!-- Tab content -->
+                <div id="p1" class="tabcontent">
+                    <!-- EDITOR 1 -->
+                    <textarea id="editor"></textarea>
+                    <span>
+                        <button class="button1" onclick="showCode()">TRADUCIR</button>
+                    </span>   
+                    <!-- FIN EDITOR 1 -->                 
+                </div>                   
+                <div id="p2" class="tabcontent">
+                    <!-- EDITOR 2 -->
+                    <textarea id="editor2"></textarea>
+                    <span>
+                        <button class="button2" onclick="showCode2()">TRADUCIR</button>
+                    </span>
+                    <!-- FIN EDITOR 2 -->
+                </div>
+                <div id="p3" class="tabcontent">
+                    <!-- EDITOR 3 -->
+                    <textarea id="editor3"></textarea>
+                    <span>
+                        <button class="button3" onclick="showCode3()">TRADUCIR</button>
+                    </span>
+                    <!-- FIN EDITOR 3 -->
+                </div> 
+                <div id="p4" class="tabcontent">
+                    <!-- EDITOR 4 -->
+                    <textarea id="editor4"></textarea>
+                    <span>
+                        <button class="button4" onclick="showCode4()">TRADUCIR</button>
+                    </span>
+                    <!-- FIN EDITOR 4 -->
+                </div> 
+                <script src="Js/Codemirrors.js"></script>
+                <script>DefaultTag('p1');</script>
+               <!-- FIN TAGS -->
+            </div>  
+       </div> 
+        <div class="consolas">
+            <div class="labelConsola"><label class="label info">Consola JS</label></div>
+            <div class="consola">
+                <!-- CONSOLA JS -->
+                <textarea id="consolaJS"></textarea>
+                <!-- FIN CONSOLA JS -->
+            </div>
+            <div class="labelConsola"><label class="label info">Consola Python</label></div>
+            <div class="consola">
+                <!-- CONSOLA Python -->
+                <textarea id="consolaPython"></textarea>
+                <!-- FIN CONSOLA JS -->
+            </div>
+            <script src="Js/Consolas.js"></script>
+            <div>
+            </div>  
+        </div>                         
+    </body> 
+ </html> 
+ 
