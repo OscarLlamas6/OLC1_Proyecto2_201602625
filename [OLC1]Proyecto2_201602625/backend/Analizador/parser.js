@@ -1,11 +1,27 @@
 var fs = require('fs'); 
 var parser = require('./Gramatica');
-var arbol = require('../AST/recorridoArbol');
+var traductorJs = require('./Traductor');
+
 
 
 fs.readFile('./entrada.txt', (err, data) => {
     if (err) throw err;  
-    var raiz = new arbol();
-    parser.parse(data.toString());
-    //console.log(raiz.recorrerDOT(parser.parse(data.toString())));
+
+    if( Analizador(data.toString())) {
+      traductorJs.parse(data.toString());
+    } else {
+        console.log("El analizador no pudo recuperarse del error. No se puede traducir.");
+      }
+    
 });
+
+function Analizador(data){
+
+  try {
+    parser.parse(data);
+    return true;
+  }
+  catch(e) {
+    return false;
+  }
+}

@@ -3,8 +3,15 @@
 %{
     const Nodo = require('../AST/nodoArbol');
     const Arbol = require('../AST/recorridoArbol');
+    const Token = require('../AST/token');
+    const Lista = require('../AST/listaTokens');
+    const Error = require('../AST/error');
+    const ListaE = require('../AST/listaErrores');
     const fs = require('fs');
-   
+    var miLista = new Lista();
+    var miListaE = new ListaE();
+    var Numero = 1;
+    var NumeroE = 1;
 %}
 
 
@@ -12,69 +19,69 @@
 %lex
 %options case-sensitive
 %%
+                    
+"args"                  %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_args'; %}
+"public"                %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_public'; %}
+"class"                 %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_class'; %}
+"interface"             %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_interface'; %}
+"int"                   %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_int'; %}
+"char"                  %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_char'; %}
+"String"                %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_string'; %}
+"double"                %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_double'; %}
+"void"                  %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_void'; %}
+"for"                   %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_for'; %}
+"while"                 %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_while'; %}
+"do"                    %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_do'; %}
+"if"                    %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_if'; %}
+"else"                  %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_else'; %}
+"break"                 %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_break'; %}
+"continue"              %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_continue'; %}
+"return"                %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_return'; %}
+"boolean"               %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_boolean'; %}
+"true"                  %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_true'; %}
+"false"                 %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_false'; %}
+"static"                %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_static'; %}
+"private"               %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_private'; %}
+"main"                  %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_main'; %}
+"System.out.println"    %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "funcion", yytext)); Numero++; return 'tk_println'; %}
+"System.out.print"      %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "funcion", yytext)); Numero++; return 'tk_print'; %}
+"&&"                    %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "operador logico", yytext)); Numero++; return 'tk_and'; %}
+"||"                    %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "operador logico", yytext)); Numero++; return 'tk_or'; %}
+"++"                    %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "operador aritmetico", yytext)); Numero++; return 'tk_add'; %}
+"--"                    %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "operador aritmetico", yytext)); Numero++; return 'tk_sus'; %}
+">="                    %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "operador relacional", yytext)); Numero++; return 'tk_mayorigual'; %}
+"<="                    %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "operador relacional", yytext)); Numero++; return 'tk_menorigual'; %}
+"=="                    %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "operador relacional", yytext)); Numero++; return 'tk_igualigual'; %}
+"!="                    %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "operador relacional", yytext)); Numero++; return 'tk_noigual'; %}
+">"                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "operador relacional", yytext)); Numero++; return 'tk_mayor'; %}
+"<"                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "operador relacional", yytext)); Numero++; return 'tk_menor'; %}
+"!"                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "operador logico", yytext)); Numero++; return 'tk_not'; %}
+"^"                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "operador logico", yytext)); Numero++; return 'tk_xor'; %}
+","                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "simbolo", yytext)); Numero++; return 'tk_coma'; %}
+"["                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "simbolo", yytext)); Numero++; return 'tk_ca'; %}
+"]"                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "simbolo", yytext)); Numero++; return 'tk_cc'; %}
+"{"                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "simbolo", yytext)); Numero++; return 'tk_la'; %}
+"}"                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "simbolo", yytext)); Numero++; return 'tk_lc'; %}
+"("                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "simbolo", yytext)); Numero++; return 'tk_pa'; %}
+")"                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "simbolo", yytext)); Numero++; return 'tk_pc'; %}
+";"                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "simbolo", yytext)); Numero++; return 'tk_pyc'; %}
+"+"                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "operador aritmetico", yytext)); Numero++; return 'tk_mas'; %}
+"-"                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "operador aritmetico", yytext)); Numero++; return 'tk_menos'; %}
+"*"                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "operador aritmetico", yytext)); Numero++; return 'tk_mul'; %}
+"/"                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "operador aritmetico", yytext)); Numero++; return 'tk_div'; %}
+"="                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "simbolo", yytext)); Numero++; return 'tk_igual'; %}
+"."                     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "simbolo", yytext)); Numero++; return 'tk_punto'; %}
 
-"args"                  %{ return 'tk_args'; %}
-"public"                %{ return 'tk_public'; %}
-"class"                 %{ return 'tk_class'; %}
-"interface"             %{ return 'tk_interface'; %}
-"int"                   %{ return 'tk_int'; %}
-"char"                  %{ return 'tk_char'; %}
-"String"                %{ return 'tk_string'; %}
-"double"                %{ return 'tk_double'; %}
-"void"                  %{ return 'tk_void'; %}
-"for"                   %{ return 'tk_for'; %}
-"while"                 %{ return 'tk_while'; %}
-"do"                    %{ return 'tk_do'; %}
-"if"                    %{ return 'tk_if'; %}
-"else"                  %{ return 'tk_else'; %}
-"break"                 %{ return 'tk_break'; %}
-"continue"              %{ return 'tk_continue'; %}
-"return"                %{ return 'tk_return'; %}
-"boolean"               %{ return 'tk_boolean'; %}
-"true"                  %{ return 'tk_true'; %}
-"false"                 %{ return 'tk_false'; %}
-"static"                %{ return 'tk_static'; %}
-"private"               %{ return 'tk_private'; %}
-"main"                  %{ return 'tk_main'; %}
-"System.out.println"    %{ return 'tk_println'; %}
-"System.out.print"      %{ return 'tk_print'; %}
-"&&"                    %{ return 'tk_and'; %}
-"||"                    %{ return 'tk_or'; %}
-"++"                    %{ return 'tk_add'; %}
-"--"                    %{ return 'tk_sus'; %}
-">="                    %{ return 'tk_mayorigual'; %}
-"<="                    %{ return 'tk_menorigual'; %}
-"=="                    %{ return 'tk_igualigual'; %}
-"!="                    %{ return 'tk_noigual'; %}
-">"                     %{ return 'tk_mayor'; %}
-"<"                     %{ return 'tk_menor'; %}
-"!"                     %{ return 'tk_not'; %}
-"^"                     %{ return 'tk_xor'; %}
-","                     %{ return 'tk_coma'; %}
-"["                     %{ return 'tk_ca'; %}
-"]"                     %{ return 'tk_cc'; %}
-"{"                     %{ return 'tk_la'; %}
-"}"                     %{ return 'tk_lc'; %}
-"("                     %{ return 'tk_pa'; %}
-")"                     %{ return 'tk_pc'; %}
-";"                     %{ return 'tk_pyc'; %}
-"+"                     %{ return 'tk_mas'; %}
-"-"                     %{ return 'tk_menos'; %}
-"*"                     %{ return 'tk_mul'; %}
-"/"                     %{ return 'tk_div'; %}
-"="                     %{ return 'tk_igual'; %}
-"."                     %{ return 'tk_punto'; %}
 
-
-\"[^\"]*\"              %{ yytext = yytext.substr(1, yyleng-2); return 'tk_cadena'; %}
-[0-9]+"."[0-9]+\b             %{  return 'tk_decimal';  %}
-[0-9]+\b                      %{  return 'tk_entero';  %}
-([a-zA-Z])[a-zA-Z0-9_]*     %{ return 'tk_id'; %}
-[/][/].*                      %{ yytext = yytext.substr(1, yyleng-2); return 'tk_commentu'; %}
-[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/] %{ yytext = yytext.substr(1, yyleng-2); return 'tk_commentm'; %}
+\"[^\"]*\"              %{ yytext = yytext.substr(1, yyleng-2); miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "cadena", yytext)); Numero++; return 'tk_cadena'; %}
+[0-9]+"."[0-9]+\b             %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "numerico", yytext)); Numero++; return 'tk_decimal';  %}
+[0-9]+\b                      %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "numerico", yytext)); Numero++;  return 'tk_entero';  %}
+([a-zA-Z])[a-zA-Z0-9_]*     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "identificador", yytext)); Numero++;  return 'tk_id'; %}
+[/][/].*                      %{ yytext = yytext.substr(1, yyleng-2); miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "comentario", yytext)); Numero++;  return 'tk_commentu'; %}
+[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/] %{ yytext = yytext.substr(1, yyleng-2); miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "comentario", yytext)); Numero++;  return 'tk_commentm'; %}
 [ \t\r\n\f] %{  /*Los Ignoramos*/   %}
 <<EOF>>     %{  return 'EOF';   %}
-.          { console.log('Error Lexico: ' + yytext + ', en la linea: ' + yylloc.first_line + ', en la columna: ' + yylloc.first_column); }
+.          { miListaE.agregarError(new Error(NumeroE, yylloc.first_line, yylloc.first_column + 1, "Lexico", "El caracter " + yytext + "no pertenece al lenguaje.")); NumeroE++; }
 
 /lex
 
@@ -96,6 +103,8 @@ INICIO: LISTA_DECLARACIONES EOF {   $$ = new Nodo("INICIO","");
                                     console.log('Codigo dot generado correctamente.');
                                     });
                                     raiz.execDOT();
+                                    miLista.ReporteTokens();
+                                    miListaE.ReporteErrores();
                                 };
 
 LISTA_DECLARACIONES: DPROGRAMA LISTA_DECLARACIONES  {   $$ = new Nodo("LISTA_DECLARACIONES","");
@@ -177,7 +186,9 @@ DPROGRAMA: VISIBILIDAD CLASE_INTERFAZ_METODO_FUNCION {  $$ = new Nodo("DPROGRAMA
               $$.agregarHijo($1);
             }
     
-    | error FINERROR {console.log("Error sintactico en la Linea: " + this._$.first_line + " en la Columna: " + this._$.first_column);};
+    | error FINERROR {  $$ = new Nodo("DPROGRAMA","");
+                        $$.agregarHijo(new Nodo("Error",""));                    
+                        miListaE.agregarError(new Error(NumeroE, yylineno, 1, "Sintactico", yytext)); NumeroE++;  };
 
 FINERROR: tk_pyc
 
@@ -294,7 +305,9 @@ CLASE_INTERFAZ_METODO_FUNCION: tk_class tk_id tk_la LISTA_DECLARACIONES tk_lc { 
                                                                                     $$.agregarHijo(new Nodo($8,"simbolo"));
                                                                                 } 
 
-    | error FINERROR {console.log("Error sintactico en la Linea: " + this._$.first_line + " en la Columna: " + this._$.first_column);};
+    | error FINERROR {  $$ = new Nodo("CLASE_INTERFAZ_METODO_FUNCION","");
+                        $$.agregarHijo(new Nodo("Error",""));                    
+                        miListaE.agregarError(new Error(NumeroE, yylineno, 1, "Sintactico", yytext)); NumeroE++; };
 
 
 LINTERFAZ: DINTERFAZ LINTERFAZ {    $$ = new Nodo("lINTERFAZ","");
@@ -322,7 +335,9 @@ DINTERFAZ: VISIBILIDAD DMETODONTERFAZ { $$ = new Nodo("DINTERFAZ","");
                     $$.agregarHijo(new Nodo($2,"simbolo"));
                   }
     
-    | error FINERROR {console.log("Error sintactico en la Linea: " + this._$.first_line + " en la Columna: " + this._$.first_column);};
+    | error FINERROR {  $$ = new Nodo("DINTERFAZ","");
+                        $$.agregarHijo(new Nodo("Error",""));                    
+                        miListaE.agregarError(new Error(NumeroE, yylineno, 1, "Sintactico", yytext)); NumeroE++; };
 
 
 DMETODONTERFAZ: TIPO_METODO_FUNCION tk_id tk_pa PARAMETROS tk_pc tk_pyc {   $$ = new Nodo("DINSTRUCCION","");
@@ -471,7 +486,9 @@ DINSTRUCCION: tk_if tk_pa EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc ELSEIF  {   
               $$.agregarHijo($1);
             }
 
-    | error FINERROR {console.log("Error sintactico en la Linea: " + this._$.first_line + " en la Columna: " + this._$.first_column);};
+    | error FINERROR {  $$ = new Nodo("DINSTRUCCION","");
+                        $$.agregarHijo(new Nodo("Error",""));                    
+                        miListaE.agregarError(new Error(NumeroE, yylineno, 1, "Sintactico", yytext)); NumeroE++; };
 
 
 PARAMETROS: PARAMETRO OTRO_PARAMETRO { $$ = new Nodo("PARAMETROS","");
@@ -547,7 +564,9 @@ EXPRESION: tk_id ID_LLAMADA {   $$ = new Nodo("EXPRESION","");
                                $$.agregarHijo(new Nodo($3,"simbolo"));
                             } 
 
-    | error FINERROR {console.log("Error sintactico en la Linea: " + this._$.first_line + " en la Columna: " + this._$.first_column);};
+    | error FINERROR {  $$ = new Nodo("EXPRESION","");
+                        $$.agregarHijo(new Nodo("Error",""));                    
+                        miListaE.agregarError(new Error(NumeroE, yylineno, 1, "Sintactico", yytext)); NumeroE++; };
 
 
 ID_LLAMADA: tk_pa VALORES tk_pc { $$ = new Nodo("ID_LLAMADA","");
@@ -707,7 +726,9 @@ ASIGNACION_LLAMADA: tk_igual EXPRESION { $$ = new Nodo("ASIGNACION_LLAMADA","");
                $$.agregarHijo(new Nodo($1,"operador"));
              }
 
-    | error FINERROR {console.log("Error sintactico en la Linea: " + this._$.first_line + " en la Columna: " + this._$.first_column);};
+    | error FINERROR {  $$ = new Nodo("ASIGNACION_LLAMADA","");
+                        $$.agregarHijo(new Nodo("Error",""));                    
+                        miListaE.agregarError(new Error(NumeroE, yylineno, 1, "Sintactico", yytext)); NumeroE++;  };
 
 
 VALORES: EXPRESION OTRO_VALOR { $$ = new Nodo("VALORES","");
