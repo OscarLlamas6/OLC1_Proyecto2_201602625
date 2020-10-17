@@ -6,6 +6,10 @@ class listaErrores{
         this.errores=[];
     }
 
+    limpiarArreglo(){
+        this.errores = [];
+    }
+
     agregarError(error){
         this.errores.push(error);
     }
@@ -60,7 +64,7 @@ class listaErrores{
             } else {
                 concatena = "No se encontraron errores lexicos ni sintacticos.";
             }
-                    
+        this.limpiarArreglo();           
         return concatena;
     }
 

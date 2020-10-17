@@ -25,8 +25,9 @@ app.use((req, res, next) => {
 app.post('/Traducir/', function (req, res) {
     var entrada = req.body.text;
     var resultadojs = "";
-  
+    
     try {
+        resultadojs = "";
         resultadojs = parser.parse(entrada);
         traductorJs.parse(entrada);
       }

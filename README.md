@@ -1,2 +1,9 @@
-# OLC1_Proyecto2_201602625
-[OLC] Proyecto 2
+# [OLC1] Proyecto 2: "Translator in Docker"
+
+
+## Información General
+- SO: Linux-Ubuntu 20.04
+- Lenguaje: Javascript/Golang
+- Creado por Oscar Alfredo Llamas Lemus
+- Octubre 2020
+
