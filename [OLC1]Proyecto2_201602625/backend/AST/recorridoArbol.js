@@ -50,7 +50,7 @@ class recorridoArbol{
     }
 
     execDOT() {
-        const child = spawn('dot', ['-Tpdf', '-o', '../Reportes/AST.pdf','../Analizador/codigo.dot']);
+        const child = spawn('dot', ['-Tpdf', '-o', './Reportes/AST.pdf','codigo.dot']);
     }
 
 }

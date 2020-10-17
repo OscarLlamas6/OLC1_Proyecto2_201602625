@@ -9,7 +9,6 @@ var consolaJS = CodeMirror.fromTextArea
 });
 
 consolaJS.setSize(850, 300);
-consolaJS.setValue("Errores traduccion JS")
 consolaJS.refresh();
 
 var consolaPython = CodeMirror.fromTextArea
@@ -23,6 +22,6 @@ var consolaPython = CodeMirror.fromTextArea
 });
 
 consolaPython.setSize(850, 300);
-consolaPython.setValue("Errores traduccion Python")
 consolaPython.refresh();
+
 

@@ -100,11 +100,11 @@ INICIO: LISTA_DECLARACIONES EOF {   $$ = new Nodo("INICIO","");
                                     var contenido = "digraph G {" + raiz.recorrerDOT($$) + "}";
                                     fs.writeFile('codigo.dot', contenido, (err) => {
                                     if (err) throw err;
-                                    console.log('Codigo dot generado correctamente.');
-                                    });
-                                    raiz.execDOT();
+                                      raiz.execDOT();
+                                    });                                  
                                     miLista.ReporteTokens();
                                     miListaE.ReporteErrores();
+                                    return miListaE.getErrores();
                                 };
 
 LISTA_DECLARACIONES: DPROGRAMA LISTA_DECLARACIONES  {   $$ = new Nodo("LISTA_DECLARACIONES","");

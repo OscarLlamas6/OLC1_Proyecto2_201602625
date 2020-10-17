@@ -90,11 +90,11 @@ case 1:
                                     var contenido = "digraph G {" + raiz.recorrerDOT(this.$) + "}";
                                     fs.writeFile('codigo.dot', contenido, (err) => {
                                     if (err) throw err;
-                                    console.log('Codigo dot generado correctamente.');
-                                    });
-                                    raiz.execDOT();
+                                      raiz.execDOT();
+                                    });                                  
                                     miLista.ReporteTokens();
                                     miListaE.ReporteErrores();
+                                    return miListaE.getErrores();
                                 
 break;
 case 2:

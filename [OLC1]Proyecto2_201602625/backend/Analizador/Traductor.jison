@@ -63,7 +63,7 @@
 "."                     %{ return 'tk_punto'; %}
 
 
-\"[^\"]*\"              %{ yytext = yytext.substr(1, yyleng-2); return 'tk_cadena'; %}
+\"[^\"]*\"              %{ return 'tk_cadena'; %}
 [0-9]+"."[0-9]+\b             %{ return 'tk_decimal';  %}
 [0-9]+\b                      %{ return 'tk_entero';  %}
 ([a-zA-Z])[a-zA-Z0-9_]*     %{ return 'tk_id'; %}
@@ -84,32 +84,32 @@
 %start INICIO
 %% 
 
-INICIO: LISTA_DECLARACIONES EOF { $$ = "Resultado"; Salida.crearArchivo($$); };
+INICIO: LISTA_DECLARACIONES EOF { $$ = $1 ; Salida.crearArchivo($$); };
 
-LISTA_DECLARACIONES: DPROGRAMA LISTA_DECLARACIONES  { }
+LISTA_DECLARACIONES: DPROGRAMA LISTA_DECLARACIONES  { $$ = $1 + $2; }
 
-    | /*EPSILON*/   { } ;
+    | /*EPSILON*/   { $$ = ""; } ;
 
 
-DPROGRAMA: VISIBILIDAD CLASE_INTERFAZ_METODO_FUNCION { }
+DPROGRAMA: VISIBILIDAD CLASE_INTERFAZ_METODO_FUNCION { $$ = $2; }
 
-    | tk_if tk_pa EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc ELSEIF  { }
+    | tk_if tk_pa EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc ELSEIF  { $$ = "if (" + $3 + "){\n  " + $6 + "}" + $8; }
 
-    | tk_for tk_pa DAFOR tk_pyc EXPRESION tk_pyc EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc  { }
+    | tk_for tk_pa DAFOR tk_pyc EXPRESION tk_pyc EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc  { $$ = "for (" + $3 + "; " + $5 + "; " + $7 + "){\n " + $10 + "}\n"; }
 
-    | tk_while tk_pa EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc  {  }
+    | tk_while tk_pa EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc  { $$ = "while (" + $3 + "){\n   " + $6 + "}\n";  }
 
-    | tk_do tk_la INSTRUCCIONES tk_lc tk_while tk_pa EXPRESION tk_pc tk_pyc { }
+    | tk_do tk_la INSTRUCCIONES tk_lc tk_while tk_pa EXPRESION tk_pc tk_pyc { $$ = "do {\n  " + $3 + "} while (" + $7 + ");\n"; }
 
-    | DECLARACION tk_pyc  { }
+    | DECLARACION tk_pyc  { $$ = $1 + ";\n"; }
 
-    | tk_id ASIGNACION_LLAMADA tk_pyc { }
+    | tk_id ASIGNACION_LLAMADA tk_pyc { $$ = $1 + $2 + ";\n"; }
 
-    | COMENTARIO
+    | COMENTARIO { $$ = $1; }
 
-    | PRINT { }
+    | PRINT { $$ = $1; }
     
-    | error FINERROR {  };
+    | error FINERROR { $$ = "";  };
 
 FINERROR: tk_pyc
 
@@ -118,27 +118,27 @@ FINERROR: tk_pyc
         | tk_pc;
 
 
-DAFOR: DECLARACION { }
+DAFOR: DECLARACION { $$ = $1; }
 
-    | ASIGNACION OTRA_ASIGNACION { } ;
-
-
-ASIGNACION: tk_id tk_igual EXPRESION { } ;
+    | ASIGNACION OTRA_ASIGNACION { $$ = $1 + $2; } ;
 
 
-OTRA_ASIGNACION: tk_coma ASIGNACION OTRA_ASIGNACION { } 
-
-    | /*EPSILON*/   {  } ;
+ASIGNACION: tk_id tk_igual EXPRESION { $$ = $1 + " = " + $3; } ;
 
 
-ELSEIF: tk_else ELSE  { } 
+OTRA_ASIGNACION: tk_coma ASIGNACION OTRA_ASIGNACION { $$ = ", " + $2 + $3; } 
 
-    | /*EPSILON*/   { } ;
+    | /*EPSILON*/   { $$ = ""; } ;
 
 
-ELSE: tk_if tk_pa EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc ELSEIF  { } 
+ELSEIF: tk_else ELSE  { $$ = " else" + $2; } 
 
-    | tk_la INSTRUCCIONES tk_lc { }  ;
+    | /*EPSILON*/   { $$ = "\n"; } ;
+
+
+ELSE: tk_if tk_pa EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc ELSEIF  { $$ = " if (" + $3 + "){\n " + $6 + "}" + $8; } 
+
+    | tk_la INSTRUCCIONES tk_lc { $$ = " {\n " + $2 + "}\n"; }  ;
 
 
 
@@ -147,13 +147,13 @@ VISIBILIDAD: tk_public  { $$ = ""; }
     | tk_private { $$ = ""; } ;
 
 
-CLASE_INTERFAZ_METODO_FUNCION: tk_class tk_id tk_la LISTA_DECLARACIONES tk_lc {  } 
+CLASE_INTERFAZ_METODO_FUNCION: tk_class tk_id tk_la LISTA_DECLARACIONES tk_lc { $$ = "class " + $2 + "{\n   constructor(){\n    }\n \n" + $4 + "}\n"; } 
 
     | tk_interface tk_id tk_la LINTERFAZ tk_lc  { $$ = ""; } 
 
-    | tk_static tk_void tk_main tk_pa tk_string tk_ca tk_cc tk_args tk_pc tk_la INSTRUCCIONES tk_lc { }
+    | tk_static tk_void tk_main tk_pa tk_string tk_ca tk_cc tk_args tk_pc tk_la INSTRUCCIONES tk_lc { $$ = "main(){\n   " + $11 + "}\n"; }
 
-    | TIPO_METODO_FUNCION tk_id tk_pa PARAMETROS tk_pc tk_la INSTRUCCIONES tk_lc { $$ = "function " + $2 + "(" + $4 + "){\n" + $7 + "}\n"; } 
+    | TIPO_METODO_FUNCION tk_id tk_pa PARAMETROS tk_pc tk_la INSTRUCCIONES tk_lc { $$ = "function " + $2 + "(" + $4 + "){\n " + $7 + "}\n"; } 
 
     | error FINERROR { $$ = ""; };
 
@@ -204,23 +204,23 @@ INSTRUCCIONES: DINSTRUCCION INSTRUCCIONES { $$ = $1 + $2;  }
     |   /*EPSILON*/ { $$ = ""; }  ;
 
 
-DINSTRUCCION: tk_if tk_pa EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc ELSEIF  { $$ = "if (" + $3 + "){\n" + $6 + "}" + $8; }
+DINSTRUCCION: tk_if tk_pa EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc ELSEIF  { $$ = "if (" + $3 + "){\n  " + $6 + "}" + $8; }
 
-    | tk_for tk_pa DAFOR tk_pyc EXPRESION tk_pyc EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc  { $$ = "for (" + $3 + "; " + $5 + "; " + $7 + "){\n" + $10 + "}\n"; }
+    | tk_for tk_pa DAFOR tk_pyc EXPRESION tk_pyc EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc  { $$ = "for (" + $3 + "; " + $5 + "; " + $7 + "){\n " + $10 + "}\n"; }
 
-    | tk_while tk_pa EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc  { $$ = "while (" + $3 + "){\n" + $6 + "}\n"; }
+    | tk_while tk_pa EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc  { $$ = "while (" + $3 + "){\n   " + $6 + "}\n"; }
 
-    | tk_do tk_la INSTRUCCIONES tk_lc tk_while tk_pa EXPRESION tk_pc tk_pyc { $$ = "do {\n" + $3 + "} while (" + $7 + ");\n"; }
+    | tk_do tk_la INSTRUCCIONES tk_lc tk_while tk_pa EXPRESION tk_pc tk_pyc { $$ = "do {\n  " + $3 + "} while (" + $7 + ");\n"; }
 
-    | tk_break tk_pyc { $$ = $1 + ";\n"; }
+    | tk_break tk_pyc { $$ = $1 + ";\n  "; }
 
-    | tk_continue tk_pyc { $$ = $1 + ";\n"; }
+    | tk_continue tk_pyc { $$ = $1 + ";\n   "; }
 
-    | tk_return RETURN tk_pyc { $$ = $1 + $2 + ";\n"; }
+    | tk_return RETURN tk_pyc { $$ = $1 + $2 + ";\n "; }
 
-    | DECLARACION tk_pyc { $$ = $1 + ";\n"; }
+    | DECLARACION tk_pyc { $$ = $1 + ";\n   "; }
 
-    | tk_id ASIGNACION_LLAMADA tk_pyc { $$ = $1 + $2 + ";\n"; }
+    | tk_id ASIGNACION_LLAMADA tk_pyc { $$ = $1 + $2 + ";\n "; }
 
     | COMENTARIO { $$ = $1; }
 
@@ -351,9 +351,9 @@ OTRO_VALOR: tk_coma EXPRESION OTRO_VALOR {  $$ = ", " + $2 + $3;  }
     | /*EPSILON*/ { $$ = ""; } ;
 
 
-PRINT: tk_println tk_pa EXPRESION tk_pc tk_pyc { $$ = "console.log(" + $1 + ");" + "\n";  }
+PRINT: tk_println tk_pa EXPRESION tk_pc tk_pyc { $$ = " console.log(" + $3 + ");" + "\n  ";  }
 
-    | tk_print tk_pa EXPRESION tk_pc tk_pyc { $$ = "console.log(" + $1 + ");" + "\n"; } ;
+    | tk_print tk_pa EXPRESION tk_pc tk_pyc { $$ = "    console.log(" + $3 + ");" + "\n "; } ;
 
 
 

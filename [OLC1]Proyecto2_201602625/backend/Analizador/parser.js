@@ -3,7 +3,6 @@ var parser = require('./Gramatica');
 var traductorJs = require('./Traductor');
 
 
-
 fs.readFile('./entrada.txt', (err, data) => {
     if (err) throw err;  
 
@@ -18,7 +17,7 @@ fs.readFile('./entrada.txt', (err, data) => {
 function Analizador(data){
 
   try {
-    parser.parse(data);
+    console.log(parser.parse(data));
     return true;
   }
   catch(e) {

@@ -43,7 +43,7 @@ class listaTokens{
         </body>
         </html>`;
 
-        fs.writeFile('../Reportes/Tokens.html', contenido, (err) => {
+        fs.writeFile('./Reportes/Tokens.html', contenido, (err) => {
         if (err) throw err;
         console.log('Reporte tokens generado correctamente.');
         });

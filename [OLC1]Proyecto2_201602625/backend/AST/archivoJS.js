@@ -5,7 +5,7 @@ class archivoJS{
     }
     
     crearArchivo(contenido){
-        fs.writeFile('../Salida/salidaJS.js', contenido, (err) => {
+        fs.writeFile('./Salida/SalidaJS.js', contenido, (err) => {
         if (err) throw err;
         console.log('Traduccion a Js exitosa.');
         });

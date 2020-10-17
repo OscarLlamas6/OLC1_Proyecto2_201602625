@@ -43,18 +43,24 @@ class listaErrores{
         </body>
         </html>`;
 
-        fs.writeFile('../Reportes/Errores.html', contenido, (err) => {
+        fs.writeFile('./Reportes/Errores.html', contenido, (err) => {
         if (err) throw err;
         console.log('Reporte errores generado correctamente.');
         });
 
     }
 
-    getTokens(){
+    getErrores(){
         var concatena = "";
-            this.tokens.forEach(element => {
-                concatena += element.getLexema() + "\n";
-            });
+
+            if (this.errores.length > 0) {
+                this.errores.forEach(element => {
+                    concatena += element.getNo() + ". " + "Fil: " + element.getFila() + " Col: " + element.getColumna() + " Tipo: " + element.getTipo() + " Desc. " + element.getDescripcion() + "\n";
+                });
+            } else {
+                concatena = "No se encontraron errores lexicos ni sintacticos.";
+            }
+                    
         return concatena;
     }
 

@@ -84,13 +84,175 @@ performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* actio
 var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
- this.$ = "Resultado"; Salida.crearArchivo(this.$); 
+ this.$ = $$[$0-1] ; Salida.crearArchivo(this.$); 
 break;
-case 2: case 3: case 4: case 5: case 6: case 8: case 9: case 10: case 12: case 17: case 18: case 19: case 20: case 22: case 23: case 24: case 25: case 26: case 27: case 28: case 29: case 30: case 31: case 32: case 33: case 34: case 35: case 36: case 37: case 39: case 40: case 41: case 42: case 43: case 44: case 45: case 46: case 47: case 48: case 49: case 50: case 52: case 53: case 54: case 55: case 56: case 57: case 58: case 59: case 60: case 61: case 63: case 64: case 65: case 66: case 67: case 68: case 69: case 70: case 71: case 72: case 73: case 74: case 75: case 76: case 77: case 78: case 79: case 81: case 82: case 83: case 84: case 85: case 86: case 87: case 88: case 89: case 90: case 91: case 92: case 93: case 94: case 96: case 97: case 98: case 99: case 100: case 103: case 104: case 105: case 106: case 107: case 108: case 109: case 112: case 113: case 114: case 115: case 116: case 117: case 119:
- 
+case 2: case 18: case 65: case 77: case 114:
+ this.$ = $$[$0-1] + $$[$0]; 
 break;
-case 7: case 13: case 21: case 38: case 51: case 80: case 118:
-  
+case 3: case 21: case 26: case 27: case 29: case 32: case 33: case 34: case 35: case 36: case 37: case 39: case 40: case 41: case 42: case 43: case 44: case 45: case 46: case 47: case 49: case 52: case 64: case 66: case 69: case 82: case 100: case 106: case 108: case 113: case 115: case 117:
+ this.$ = ""; 
+break;
+case 4: case 11: case 12: case 17: case 62: case 63: case 67: case 70:
+ this.$ = $$[$0]; 
+break;
+case 5: case 53:
+ this.$ = "if (" + $$[$0-5] + "){\n  " + $$[$0-2] + "}" + $$[$0]; 
+break;
+case 6: case 54:
+ this.$ = "for (" + $$[$0-8] + "; " + $$[$0-6] + "; " + $$[$0-4] + "){\n " + $$[$0-1] + "}\n"; 
+break;
+case 7:
+ this.$ = "while (" + $$[$0-4] + "){\n   " + $$[$0-1] + "}\n";  
+break;
+case 8: case 56:
+ this.$ = "do {\n  " + $$[$0-6] + "} while (" + $$[$0-2] + ");\n"; 
+break;
+case 9:
+ this.$ = $$[$0-1] + ";\n"; 
+break;
+case 10:
+ this.$ = $$[$0-2] + $$[$0-1] + ";\n"; 
+break;
+case 13: case 38: case 48: case 50: case 80:
+ this.$ = "";  
+break;
+case 19:
+ this.$ = $$[$0-2] + " = " + $$[$0]; 
+break;
+case 20: case 68: case 107:
+ this.$ = ", " + $$[$0-1] + $$[$0]; 
+break;
+case 22:
+ this.$ = " else" + $$[$0]; 
+break;
+case 23:
+ this.$ = "\n"; 
+break;
+case 24:
+ this.$ = " if (" + $$[$0-5] + "){\n " + $$[$0-2] + "}" + $$[$0]; 
+break;
+case 25:
+ this.$ = " {\n " + $$[$0-1] + "}\n"; 
+break;
+case 28:
+ this.$ = "class " + $$[$0-3] + "{\n   constructor(){\n    }\n \n" + $$[$0-1] + "}\n"; 
+break;
+case 30:
+ this.$ = "main(){\n   " + $$[$0-1] + "}\n"; 
+break;
+case 31:
+ this.$ = "function " + $$[$0-6] + "(" + $$[$0-4] + "){\n " + $$[$0-1] + "}\n"; 
+break;
+case 51:
+ this.$ = $$[$0-1] + $$[$0];  
+break;
+case 55:
+ this.$ = "while (" + $$[$0-4] + "){\n   " + $$[$0-1] + "}\n"; 
+break;
+case 57:
+ this.$ = $$[$0-1] + ";\n  "; 
+break;
+case 58: case 60:
+ this.$ = $$[$0-1] + ";\n   "; 
+break;
+case 59: case 61:
+ this.$ = $$[$0-2] + $$[$0-1] + ";\n "; 
+break;
+case 71:
+ this.$ = $$[$01]; 
+break;
+case 72:
+ this.$ = " " + $$[$0-1]; 
+break;
+case 73: case 74: case 76: case 99:
+ this.$ = " " + $$[$0]; 
+break;
+case 75:
+ this.$ = " " + $$[$0];  
+break;
+case 78:
+ this.$ = "- " + $$[$0]; 
+break;
+case 79: case 81: case 110:
+ this.$ = "( " + $$[$0-1] + ")"; 
+break;
+case 83:
+ this.$ = " > " + $$[$0]; 
+break;
+case 84:
+ this.$ = " < " + $$[$0]; 
+break;
+case 85:
+ this.$ = " >= " + $$[$0]; 
+break;
+case 86:
+ this.$ = " <= " + $$[$0]; 
+break;
+case 87:
+ this.$ = " == " + $$[$0]; 
+break;
+case 88:
+ this.$ = " != " + $$[$0]; 
+break;
+case 89:
+ this.$ = " + " + $$[$0]; 
+break;
+case 90:
+ this.$ = " - " + $$[$0]; 
+break;
+case 91:
+ this.$ = " * " + $$[$0]; 
+break;
+case 92:
+ this.$ = " / " + $$[$0]; 
+break;
+case 93:
+ this.$ = " && " + $$[$0]; 
+break;
+case 94:
+ this.$ = " || " + $$[$0]; 
+break;
+case 95:
+ this.$ = " !" + $$[$0]; 
+break;
+case 96:
+ this.$ = " ^ " + $$[$0]; 
+break;
+case 97: case 111:
+ this.$ = "++"; 
+break;
+case 98:
+ this.$ = "--"; 
+break;
+case 101:
+ this.$ = $$[$0] + "\n" ; 
+break;
+case 102:
+ this.$ = $$[$0] + "\n"; 
+break;
+case 103:
+ this.$ = "var " + $$[$0-1] + $$[$0]; 
+break;
+case 104:
+ this.$ = $$[$0-1] + " " + $$[$0]; 
+break;
+case 105:
+ this.$ = "= " + $$[$0]; 
+break;
+case 109:
+ this.$ = " = " + $$[$0]  
+break;
+case 112:
+ this.$ = "--";  
+break;
+case 116:
+  this.$ = ", " + $$[$0-1] + $$[$0];  
+break;
+case 118:
+ this.$ = " console.log(" + $$[$0-2] + ");" + "\n  ";  
+break;
+case 119:
+ this.$ = "    console.log(" + $$[$0-2] + ");" + "\n "; 
 break;
 }
 },
@@ -776,7 +938,7 @@ case 49: return 30;
 break;
 case 50: return 'tk_punto'; 
 break;
-case 51: yy_.yytext = yy_.yytext.substr(1, yy_.yyleng-2); return 66; 
+case 51: return 66; 
 break;
 case 52: return 64;  
 break;
