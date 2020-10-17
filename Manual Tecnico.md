@@ -6,7 +6,7 @@
 
 **Comando para levantar servidor backend Nodejs _backend/app.js_**
 
-    >node app.js
+    > node app.js
 
 # Comandos Docker usados
 
@@ -29,7 +29,7 @@
 
     > sudo systemctl status docker
 
-## El resultado debe ser parecido a lo siguiente:**
+## El resultado debe ser parecido a lo siguiente:
 
 
 
