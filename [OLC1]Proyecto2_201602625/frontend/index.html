@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="Css/styles.css">
         <script src="Js/Tabs.js"></script>
         <script src="Js/index.js"></script>
+        <script src="Js/Descargas.js"></script>
         <title>Traductor JAVA | By Oscar Llamas</title>
         <link href="codemirror/lib/codemirror.css" rel="stylesheet">
         <script src="codemirror/lib/codemirror.js"></script>
@@ -23,8 +24,7 @@
                             <input type="file" id="real-file" hidden="hidden" />
                             <a class="dropitem" id="botonAbrir">Abrir</a>
                             <a class="dropitem" onclick="Nuevo()" >Nuevo</a>
-                            <a class="dropitem" onclick="Guardar()" href="javascript:void(0)">Guardar</a>
-                            <a class="dropitem" id="a" onclick="GenerarDescarga()" href="javascript:void(0)">Guardar como...</a>
+                            <a class="dropitem" id="a" onclick="GenerarDescarga()">Guardar como...</a>
                         </div>
                     </div> 
                 </div>
@@ -32,8 +32,7 @@
                     <div class="dropdown">
                         <button onclick="Descargar()" class="dropbtn">Descargar</button>
                         <div id="myDropdown2" class="dropdown-content">
-                          <a class="dropitem" onclick="DescargarAmbos()">Ambos</a>
-                          <a class="dropitem" onclick="DescargarJS()">JavaScript</a>
+                        <a class="dropitem" onclick="TraduccionJS()">JavaScript</a>
                           <a class="dropitem" onclick="DescargarPython()">Python</a>
                         </div>
                     </div> 

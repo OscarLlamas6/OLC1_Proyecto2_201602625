@@ -19,3 +19,11 @@ function Traducir(){
         }
     });
 }
+
+function TraduccionJS(){
+
+    puerto = 3000;
+    var url='http://localhost:'+ puerto +'/descargarJS/';
+    window.open(url);
+
+}

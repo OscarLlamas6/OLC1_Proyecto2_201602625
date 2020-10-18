@@ -1,8 +1,10 @@
+const fs = require('fs')
 var parser = require('./Analizador/Gramatica');
 var traductorJs = require('./Analizador/Traductor');
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
+const pathJS = './Salida/SalidaJS.js';
 const app = express();
 app.use(cors());
 
@@ -38,6 +40,32 @@ app.post('/Traducir/', function (req, res) {
 
       console.log("Entro una peticion REST");
       res.send(resultadojs);
+
+});
+
+app.get('/descargarJS/', function(req, res) { 
+  var existe = false;
+
+      try {
+        if(fs.existsSync(pathJS)) {
+            console.log("El archivo SalidaJS.js si existe");
+            existe = true;
+        } else {
+            console.log('El archivo SalidaJS.js no existe');
+            existe = false;
+        }
+    } catch (err) {
+        console.error(err);
+    }
+
+  if (existe){
+    existe = false;
+    console.log("Si se ha generado ningun archivo JS.");
+    res.download(__dirname + '/Salida/SalidaJS.js','Salida.js')
+  } else {
+    console.log("No se ha generado ningun archivo JS.");
+    res.send("");
+  }
 
 });
 

@@ -1,16 +1,22 @@
 var fs = require('fs'); 
 var parser = require('./Gramatica');
 var traductorJs = require('./Traductor');
+var Lexico = require('./lexicoPy');
 
 
 fs.readFile('./entrada.txt', (err, data) => {
     if (err) throw err;  
 
-    if( Analizador(data.toString())) {
+    var lexer = new Lexico(data.toString());
+    lexer.Iniciar();
+
+
+
+ /*   if( Analizador(data.toString())) {
       traductorJs.parse(data.toString());
     } else {
         console.log("El analizador no pudo recuperarse del error. No se puede traducir.");
-      }
+      }*/
     
 });
 

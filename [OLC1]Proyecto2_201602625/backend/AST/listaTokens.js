@@ -6,6 +6,10 @@ class listaTokens{
         this.tokens=[];
     }
 
+    limpiarArreglo(){
+        this.tokens = [];
+    }
+
     agregarToken(token){
         this.tokens.push(token);
     }
@@ -48,6 +52,7 @@ class listaTokens{
         console.log('Reporte tokens generado correctamente.');
         });
 
+        this.limpiarArreglo();
     }
 
     getTokens(){
