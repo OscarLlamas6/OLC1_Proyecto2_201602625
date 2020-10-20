@@ -20,6 +20,38 @@ function Traducir(){
     });
 }
 
+function Ejecutar(){
+
+    var contenido = editor.getValue();
+    
+    var data = {
+        "texto" : contenido 
+    };
+
+    //console.log("hola");
+
+    fetch("http://localhost:3000/Traducir/",{
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers:{
+            "Content-Type" : "application/json"  }
+        }).then(res => res.json())
+        .catch(error => console.log(error))
+        .then(response => resultado(response));
+    } 
+
+
+function resultado(response){
+
+    consolaJS.setValue(response.jsconsole);
+    consolaJS.refresh();
+    consolaPython.setValue(response.pyconsole);
+    consolaPython.refresh();
+
+}
+
+
+
 function TraduccionJS(){
 
     puerto = 3000;

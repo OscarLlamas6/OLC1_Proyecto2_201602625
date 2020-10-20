@@ -25,21 +25,27 @@ app.use((req, res, next) => {
 
 
 app.post('/Traducir/', function (req, res) {
-    var entrada = req.body.text;
+    //var entrada = req.body.text;
+    var entrada = req.body.texto;
     var resultadojs = "";
+    var resultadopy = "Resultados Python";
     
     try {
         resultadojs = "";
         resultadojs = parser.parse(entrada);
-        traductorJs.parse(entrada);
+        resultadojs += "\n\n";
+        resultadojs += traductorJs.parse(entrada);
+
+
       }
       catch(e) {
         resultadojs = "El analizador no pudo recuperarse del error. No se puede traducir.";
       }
 
 
-      console.log("Entro una peticion REST");
-      res.send(resultadojs);
+      console.log("Entro una peticion REST desde fetch");
+      res.send(JSON.stringify({ "jsconsole": resultadojs, "pyconsole" : resultadopy }));
+      //res.send(resultadojs);
 
 });
 

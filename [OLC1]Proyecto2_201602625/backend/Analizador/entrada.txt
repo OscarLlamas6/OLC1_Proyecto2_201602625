@@ -4,6 +4,15 @@ public class AddTwoIntegers {
         
         int first = 10;
         int second = 20;
-            
+        int time = 22;
+        if (time < 10) {
+        System.out.println("Good morning.");
+        } else if (time < 20) {
+        System.out.println("Good day.");
+        } else {
+        System.out.println("Good evening.");
+        }   
+}
+
 }
 

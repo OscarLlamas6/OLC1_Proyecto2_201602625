@@ -45,7 +45,7 @@
              └─24321 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
 
              
-## Ya creandos nuestros contenedores podemos verificar cuales esta corriendo o que se muestren todos:
+## Ya creados nuestros contenedores podemos verificar cuales esta corriendo o que se muestren todos:
 
     > sudo docker ps
 

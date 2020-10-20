@@ -84,7 +84,7 @@
 %start INICIO
 %% 
 
-INICIO: LISTA_DECLARACIONES EOF { $$ = $1 ; Salida.crearArchivo($$); };
+INICIO: LISTA_DECLARACIONES EOF { $$ = $1 ; Salida.crearArchivo($$); return $$; };
 
 LISTA_DECLARACIONES: DPROGRAMA LISTA_DECLARACIONES  { $$ = $1 + $2; }
 
