@@ -1436,19 +1436,19 @@ case 53: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yyllo
 break;
 case 54: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "identificador", yy_.yytext)); Numero++;  return 23; 
 break;
-case 55: yy_.yytext = yy_.yytext.substr(1, yy_.yyleng-2); miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "comentario", yy_.yytext)); Numero++;  return 87; 
+case 55: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "comentario", yy_.yytext)); Numero++;  return 87; 
 break;
-case 56: yy_.yytext = yy_.yytext.substr(1, yy_.yyleng-2); miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "comentario", yy_.yytext)); Numero++;  return 88; 
+case 56: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "comentario", yy_.yytext)); Numero++;  return 88; 
 break;
 case 57:  /*Los Ignoramos*/   
 break;
 case 58:  return 5;   
 break;
-case 59: miListaE.agregarError(new Error(NumeroE, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "Lexico", "El caracter " + yy_.yytext + "no pertenece al lenguaje.")); NumeroE++; 
+case 59: miListaE.agregarError(new Error(NumeroE, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "Lexico", "El caracter " + yy_.yytext + " no pertenece al lenguaje.")); NumeroE++; 
 break;
 }
 },
-rules: [/^(?:args\b)/,/^(?:public\b)/,/^(?:class\b)/,/^(?:interface\b)/,/^(?:int\b)/,/^(?:char\b)/,/^(?:String\b)/,/^(?:double\b)/,/^(?:void\b)/,/^(?:for\b)/,/^(?:while\b)/,/^(?:do\b)/,/^(?:if\b)/,/^(?:else\b)/,/^(?:break\b)/,/^(?:continue\b)/,/^(?:return\b)/,/^(?:boolean\b)/,/^(?:true\b)/,/^(?:false\b)/,/^(?:static\b)/,/^(?:private\b)/,/^(?:main\b)/,/^(?:System\.out\.println\b)/,/^(?:System\.out\.print\b)/,/^(?:&&)/,/^(?:\|\|)/,/^(?:\+\+)/,/^(?:--)/,/^(?:>=)/,/^(?:<=)/,/^(?:==)/,/^(?:!=)/,/^(?:>)/,/^(?:<)/,/^(?:!)/,/^(?:\^)/,/^(?:,)/,/^(?:\[)/,/^(?:\])/,/^(?:\{)/,/^(?:\})/,/^(?:\()/,/^(?:\))/,/^(?:;)/,/^(?:\+)/,/^(?:-)/,/^(?:\*)/,/^(?:\/)/,/^(?:=)/,/^(?:\.)/,/^(?:"[^\"]*")/,/^(?:[0-9]+\.[0-9]+\b)/,/^(?:[0-9]+\b)/,/^(?:([a-zA-Z])[a-zA-Z0-9_]*)/,/^(?:[\/][\/].*)/,/^(?:[\/][*][^*]*[*]+([^\/*][^*]*[*]+)*[\/])/,/^(?:[ \t\r\n\f])/,/^(?:$)/,/^(?:.)/],
+rules: [/^(?:args\b)/,/^(?:public\b)/,/^(?:class\b)/,/^(?:interface\b)/,/^(?:int\b)/,/^(?:char\b)/,/^(?:String\b)/,/^(?:double\b)/,/^(?:void\b)/,/^(?:for\b)/,/^(?:while\b)/,/^(?:do\b)/,/^(?:if\b)/,/^(?:else\b)/,/^(?:break\b)/,/^(?:continue\b)/,/^(?:return\b)/,/^(?:boolean\b)/,/^(?:true\b)/,/^(?:false\b)/,/^(?:static\b)/,/^(?:private\b)/,/^(?:main\b)/,/^(?:System\.out\.println\b)/,/^(?:System\.out\.print\b)/,/^(?:&&)/,/^(?:\|\|)/,/^(?:\+\+)/,/^(?:--)/,/^(?:>=)/,/^(?:<=)/,/^(?:==)/,/^(?:!=)/,/^(?:>)/,/^(?:<)/,/^(?:!)/,/^(?:\^)/,/^(?:,)/,/^(?:\[)/,/^(?:\])/,/^(?:\{)/,/^(?:\})/,/^(?:\()/,/^(?:\))/,/^(?:;)/,/^(?:\+)/,/^(?:-)/,/^(?:\*)/,/^(?:\/)/,/^(?:=)/,/^(?:\.)/,/^(?:"[^\"]*")/,/^(?:[0-9]+\.[0-9]+\b)/,/^(?:[0-9]+\b)/,/^(?:([a-zA-Z_])[a-zA-Z0-9_]*)/,/^(?:[\/][\/].*)/,/^(?:[\/][*][^*]*[*]+([^\/*][^*]*[*]+)*[\/])/,/^(?:[ \t\r\n\f])/,/^(?:$)/,/^(?:.)/],
 conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59],"inclusive":true}}
 });
 return lexer;

@@ -2,6 +2,7 @@ var fs = require('fs');
 var parser = require('./Gramatica');
 var traductorJs = require('./Traductor');
 var Lexico = require('./lexicoPy');
+var Sintactico = require('./sintacticoPy');
 
 
 fs.readFile('./entrada.txt', (err, data) => {
@@ -9,14 +10,15 @@ fs.readFile('./entrada.txt', (err, data) => {
 
     var lexer = new Lexico(data.toString());
     lexer.Iniciar();
+    console.log(lexer.errorLex);
+    console.log(lexer.tokens.length);
+    console.log(lexer.errores.length);
+    var syntax = new Sintactico(lexer.tokens,lexer.errores,lexer.cErrores);
+    syntax.Start();
+    console.log(syntax.errorSyntax);
+    console.log(syntax.tokens.length);
+    console.log(syntax.errores.length);
 
-
-
- /*   if( Analizador(data.toString())) {
-      traductorJs.parse(data.toString());
-    } else {
-        console.log("El analizador no pudo recuperarse del error. No se puede traducir.");
-      }*/
     
 });
 

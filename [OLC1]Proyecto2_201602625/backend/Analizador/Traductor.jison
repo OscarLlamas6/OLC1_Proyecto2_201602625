@@ -67,8 +67,8 @@
 [0-9]+"."[0-9]+\b             %{ return 'tk_decimal';  %}
 [0-9]+\b                      %{ return 'tk_entero';  %}
 ([a-zA-Z])[a-zA-Z0-9_]*     %{ return 'tk_id'; %}
-[/][/].*                      %{ yytext = yytext.substr(1, yyleng-2); return 'tk_commentu'; %}
-[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/] %{ yytext = yytext.substr(1, yyleng-2); return 'tk_commentm'; %}
+[/][/].*                      %{ return 'tk_commentu'; %}
+[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/] %{ return 'tk_commentm'; %}
 [ \t\r\n\f] %{  /*Los Ignoramos*/   %}
 <<EOF>>     %{  return 'EOF';   %}
 .          { }

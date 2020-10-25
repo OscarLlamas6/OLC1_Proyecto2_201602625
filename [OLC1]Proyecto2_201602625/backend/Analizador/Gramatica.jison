@@ -78,8 +78,8 @@
 [0-9]+"."[0-9]+\b             %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "numerico", yytext)); Numero++; return 'tk_decimal';  %}
 [0-9]+\b                      %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "numerico", yytext)); Numero++;  return 'tk_entero';  %}
 ([a-zA-Z_])[a-zA-Z0-9_]*     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "identificador", yytext)); Numero++;  return 'tk_id'; %}
-[/][/].*                      %{ yytext = yytext.substr(1, yyleng-2); miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "comentario", yytext)); Numero++;  return 'tk_commentu'; %}
-[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/] %{ yytext = yytext.substr(1, yyleng-2); miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "comentario", yytext)); Numero++;  return 'tk_commentm'; %}
+[/][/].*                      %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "comentario", yytext)); Numero++;  return 'tk_commentu'; %}
+[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/] %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "comentario", yytext)); Numero++;  return 'tk_commentm'; %}
 [ \t\r\n\f] %{  /*Los Ignoramos*/   %}
 <<EOF>>     %{  return 'EOF';   %}
 .          { miListaE.agregarError(new Error(NumeroE, yylloc.first_line, yylloc.first_column + 1, "Lexico", "El caracter " + yytext + " no pertenece al lenguaje.")); NumeroE++; }

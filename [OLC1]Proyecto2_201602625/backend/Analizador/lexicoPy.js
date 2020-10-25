@@ -1,7 +1,6 @@
 const Token = require('../AST/tokenPy');
 const Error = require('../AST/error');
-const Lista = require('../AST/listaTokens');
-const ListaE = require('../AST/listaErrores');
+
 
 
 class Lexico{
@@ -147,6 +146,7 @@ class Lexico{
                             this.cTokens++;
                             this.tokens.push(new Token(this.cTokens, this.fila, this.columna, "Cadena", this.lexemaact, "tk_cadena"));
                             this.lexemaact = "";
+                            this.estado = 0;
                         }
                         break;
                     case 2: //numeros
@@ -536,11 +536,8 @@ class Lexico{
             } 
         }
 
-        if (!this.errorLex){
-            console.log("ANALISIS LEXICO EXITOSO");
-        } else {
-            console.log("ANALISIS LEXICO NO EXITOSO");
-        }
+        this.cTokens++;
+        this.tokens.push(new Token(this.cTokens, this.fila, this.columna, "Fin de cadena", "#", "tk_#"))
 
     }
 
@@ -549,8 +546,7 @@ class Lexico{
         if(s == " " || s == "\t" || s == "\n" || s == "\f" || s == "\r" || s == "   "){
             return true;
         }
-        return false;
-
+        return false; 
     }
 
     isDigit(n) { return /^[0-9]$/.test(n); } 
@@ -563,4 +559,4 @@ class Lexico{
 
 }
 
-module.exports= Lexico;
+module.exports = Lexico;

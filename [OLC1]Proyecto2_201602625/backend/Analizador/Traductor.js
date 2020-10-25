@@ -946,9 +946,9 @@ case 53: return 63;
 break;
 case 54: return 23; 
 break;
-case 55: yy_.yytext = yy_.yytext.substr(1, yy_.yyleng-2); return 87; 
+case 55: return 87; 
 break;
-case 56: yy_.yytext = yy_.yytext.substr(1, yy_.yyleng-2); return 88; 
+case 56: return 88; 
 break;
 case 57:  /*Los Ignoramos*/   
 break;
