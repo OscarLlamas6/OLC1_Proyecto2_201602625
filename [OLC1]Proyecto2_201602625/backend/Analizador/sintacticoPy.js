@@ -11,17 +11,20 @@ class Sintactico{
         this.Numtoken = -1;
         this.traduccion = ``;
         this.cadenaAux = ``;
-        this.tab = ``;
+        this.tab = 0;
         this.errorSyntax = false;
+        this.salto = 1;
     }
 
     Start(){
 
+        this.traduccion = "";
+        this.salto = 1;
         if (this.Numtoken < ((Object.keys(this.tokens).length) -1) ) {
             
             this.tokenAux = this.SiguienteToken();
             this.Iniciar();
-        }
+        }    
     }
 
     Iniciar(){
@@ -39,16 +42,27 @@ class Sintactico{
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_class")){
 
+                this.traduccion += this.Tabulacion(this.tab);
+                this.traduccion += "class "
+
                 this.tokenAux = this.SiguienteToken();
                 if (this.TokenCorrecto(this.tokenAux,"tk_id")){
+
+                    this.traduccion += this.tokenAux.getLexema();
 
                     this.tokenAux = this.SiguienteToken();
                     if (this.TokenCorrecto(this.tokenAux,"tk_la")){
 
+                        this.traduccion += ":\n";
+                        this.tab++;
+
                         this.tokenAux = this.SiguienteToken();
-                        this.ListaDeclarariones();
+                        this.ListaDeclarariones();                      
+
                         if (this.TokenCorrecto(this.tokenAux,"tk_lc")){
                             
+                            this.tab--;
+
                             this.tokenAux = this.SiguienteToken();
                             this.ListaDeclarariones();
 
@@ -73,15 +87,26 @@ class Sintactico{
 
             } else if (this.TokenCorrecto(this.tokenAux,"tk_interface")) {
 
+                this.traduccion += this.Tabulacion(this.tab);
+                this.traduccion += "class "
+
                 this.tokenAux = this.SiguienteToken();
                 if (this.TokenCorrecto(this.tokenAux,"tk_id")){
+
+                    this.traduccion += this.tokenAux.getLexema();
 
                     this.tokenAux = this.SiguienteToken();
                     if (this.TokenCorrecto(this.tokenAux,"tk_la")){
 
+                        this.traduccion += ":\n";
+                        this.tab++;
+
                         this.tokenAux = this.SiguienteToken();
                         this.LInterfaz();
                         if (this.TokenCorrecto(this.tokenAux,"tk_lc")){
+
+                            this.traduccion += `\n\n`;
+                            this.tab--;
 
                             this.tokenAux = this.SiguienteToken();
                             this.ListaDeclarariones();
@@ -136,56 +161,67 @@ class Sintactico{
                                                 this.tokenAux = this.SiguienteToken();
                                                 if (this.TokenCorrecto(this.tokenAux,"tk_la")){
 
+                                                    this.traduccion += this.Tabulacion(this.tab);
+                                                    this.traduccion += "def main():\n";
+                                                    this.tab++;
+
                                                     this.tokenAux = this.SiguienteToken();
                                                     this.Instrucciones();
                                                     if (this.TokenCorrecto(this.tokenAux,"tk_lc")){
+
+                                                        this.tab--;
+                                                        this.traduccion += this.Tabulacion(this.tab);
+                                                        this.traduccion += `if __name__ = "__main__":\n`;
+                                                        this.tab++;
+                                                        this.traduccion += this.Tabulacion(this.tab) + `main()\n\n`;
+                                                        this.tab--;
                             
                                                         this.tokenAux = this.SiguienteToken();
                                                         this.ListaDeclarariones();
                             
                                                     } else {
                                                         this.cErrores++;
-                            this.errorSyntax = true;            
+                                                        this.errorSyntax = true;            
                                                         this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba }"));
                                                     }   
                     
                                                     
                                                 } else {
                                                     this.cErrores++;
-                            this.errorSyntax = true;            
+                                                    this.errorSyntax = true;            
                                                     this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba {"));
                                                 } 
                 
                                                 
                                             } else {
                                                 this.cErrores++;
-                            this.errorSyntax = true;            
+                                                this.errorSyntax = true;            
                                                 this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba )"));
                                             } 
             
                                             
                                         } else {
                                             this.cErrores++;
-                            this.errorSyntax = true;            
+                                            this.errorSyntax = true;            
                                             this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba la palabra reservada args"));
                                         } 
                                         
                                     } else {
                                         this.cErrores++;
-                            this.errorSyntax = true;            
+                                        this.errorSyntax = true;            
                                         this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba ]"));
                                     } 
                                     
                                 } else {
                                     this.cErrores++;
-                            this.errorSyntax = true;            
+                                    this.errorSyntax = true;            
                                     this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba ["));
                                 } 
 
                                 
                             } else {
                                 this.cErrores++;
-                            this.errorSyntax = true;            
+                                this.errorSyntax = true;            
                                 this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba la palabra reservada String"));
                             } 
 
@@ -198,34 +234,49 @@ class Sintactico{
                         
                     } else {
                         this.cErrores++;
-                            this.errorSyntax = true;            
+                        this.errorSyntax = true;            
                         this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba la palabra reservada main"));
                     } 
                     
                 } else {
                     this.cErrores++;
-                            this.errorSyntax = true;            
+                    this.errorSyntax = true;            
                     this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba la palabra reservada void"));
                 } 
 
             } else if (this.TokenCorrecto(this.tokenAux,"tk_void") || this.TokenCorrecto(this.tokenAux,"tk_int") || this.TokenCorrecto(this.tokenAux,"tk_double") || this.TokenCorrecto(this.tokenAux,"tk_string") || this.TokenCorrecto(this.tokenAux,"tk_boolean") || this.TokenCorrecto(this.tokenAux,"tk_char")){
 
+                this.traduccion += this.Tabulacion(this.tab);
+                this.traduccion += 'def ';
+
                 this.tokenAux = this.SiguienteToken();
                 if (this.TokenCorrecto(this.tokenAux,"tk_id")){
 
+                    this.traduccion += this.tokenAux.getLexema();
+
                     this.tokenAux = this.SiguienteToken();
                     if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
+
+                        this.traduccion += "(";
 
                         this.tokenAux = this.SiguienteToken();
                         this.Parametros();
                         if (this.TokenCorrecto(this.tokenAux,"tk_pc")){
 
+                            this.traduccion += ")";
+
                             this.tokenAux = this.SiguienteToken();
                             if (this.TokenCorrecto(this.tokenAux,"tk_la")){
+
+                                this.traduccion += ":\n";
+                                this.tab++;
 
                                 this.tokenAux = this.SiguienteToken();
                                 this.Instrucciones();
                                 if (this.TokenCorrecto(this.tokenAux,"tk_lc")){
+
+                                    this.traduccion += `\n\n`;
+                                    this.tab--;
         
                                     this.tokenAux = this.SiguienteToken();
                                     this.ListaDeclarariones();
@@ -273,6 +324,10 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_if")){
 
+            this.traduccion += "\n";
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += "if";
+
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
 
@@ -283,9 +338,15 @@ class Sintactico{
                     this.tokenAux = this.SiguienteToken();
                     if (this.TokenCorrecto(this.tokenAux,"tk_la")){
 
+                        this.traduccion += ":\n";
+                        this.tab++;
+
                         this.tokenAux = this.SiguienteToken();
                         this.Instrucciones();
                         if (this.TokenCorrecto(this.tokenAux,"tk_lc")){
+
+                            this.traduccion += "\n";
+                            this.tab--;
 
                             this.tokenAux = this.SiguienteToken();
                             this.Elseif();
@@ -321,27 +382,45 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_for")){
 
+            this.traduccion += "\n";
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += "for x in range";
+
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
 
+                this.traduccion += "(";
+        
                 this.tokenAux = this.SiguienteToken();
                 this.Dafor();
                 if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
+
+                    this.traduccion += ",";
 
                     this.tokenAux = this.SiguienteToken();
                     this.Expresion();
                     if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
 
+                        this.traduccion += ",";
+
                         this.tokenAux = this.SiguienteToken();
                         this.Expresion();
                         if (this.TokenCorrecto(this.tokenAux,"tk_pc")){
 
+                            this.traduccion += ")";
+
                             this.tokenAux = this.SiguienteToken();
                             if (this.TokenCorrecto(this.tokenAux,"tk_la")){
+
+                                this.traduccion += ":\n";
+                                this.tab++;
 
                                 this.tokenAux = this.SiguienteToken();
                                 this.Instrucciones();
                                 if (this.TokenCorrecto(this.tokenAux,"tk_lc")){
+
+                                    this.traduccion += "\n";
+                                    this.tab--;
                     
                                     this.tokenAux = this.SiguienteToken();
                                     this.ListaDeclarariones();      
@@ -390,6 +469,10 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_while")){
 
+            this.traduccion += "\n";
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += "while "
+
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
 
@@ -399,10 +482,16 @@ class Sintactico{
     
                     this.tokenAux = this.SiguienteToken();
                     if (this.TokenCorrecto(this.tokenAux,"tk_la")){
+
+                        this.traduccion += ":\n";
+                        this.tab++;
         
                         this.tokenAux = this.SiguienteToken();
                         this.Instrucciones();
                         if (this.TokenCorrecto(this.tokenAux,"tk_lc")){
+
+                            this.traduccion += "\n";
+                            this.tab--;
             
                             this.tokenAux = this.SiguienteToken();      
                             this.ListaDeclarariones();
@@ -435,8 +524,15 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_do")){
 
+            this.traduccion += "\n";
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += " while True";
+
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_la")){
+
+                this.traduccion += ":\n";
+                this.tab++;
 
                 this.tokenAux = this.SiguienteToken();
                 this.Instrucciones();
@@ -444,6 +540,9 @@ class Sintactico{
 
                     this.tokenAux = this.SiguienteToken();
                     if (this.TokenCorrecto(this.tokenAux,"tk_while")){
+
+                        this.traduccion += this.Tabulacion(this.tab);
+                        this.traduccion += "if"
         
                         this.tokenAux = this.SiguienteToken();
                         if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
@@ -454,7 +553,17 @@ class Sintactico{
 
                                 this.tokenAux = this.SiguienteToken();
                                 if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
-                                    
+
+                                    this.traduccion += ":\n";
+                                    this.traduccion += this.Tabulacion(this.tab);
+                                    this.traduccion += "    continue\n";
+                                    this.traduccion += this.Tabulacion(this.tab);
+                                    this.traduccion += "else:\n"
+                                    this.traduccion += this.Tabulacion(this.tab);
+                                    this.traduccion += "    break\n";
+                                    this.traduccion += "\n";
+                                    this.tab--;
+
                                     this.tokenAux = this.SiguienteToken();      
                                     this.ListaDeclarariones();
                     
@@ -499,9 +608,13 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_int") || this.TokenCorrecto(this.tokenAux,"tk_double") || this.TokenCorrecto(this.tokenAux,"tk_string") || this.TokenCorrecto(this.tokenAux,"tk_boolean") || this.TokenCorrecto(this.tokenAux,"tk_char")){
 
+                this.traduccion += this.Tabulacion(this.tab);
+
                 this.tokenAux = this.SiguienteToken();
                 this.Variable();
                 if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
+
+                    this.traduccion += "\n";
 
                     this.tokenAux = this.SiguienteToken();      
                     this.ListaDeclarariones();
@@ -514,9 +627,14 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_id")){
 
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += this.tokenAux.getLexema();
+
             this.tokenAux = this.SiguienteToken();
             this.AsignacionLlamada();
             if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
+
+                this.traduccion += "\n";
 
                 this.tokenAux = this.SiguienteToken();      
                 this.ListaDeclarariones();
@@ -529,10 +647,16 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_commentu")){
 
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += "#" + this.tokenAux.getLexema();
+
             this.tokenAux = this.SiguienteToken();      
             this.ListaDeclarariones(); 
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_commentm")){
+
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += `'''` + this.tokenAux.getLexema() + `'''`+"\n";
 
             this.tokenAux = this.SiguienteToken();      
             this.ListaDeclarariones(); 
@@ -551,13 +675,24 @@ class Sintactico{
                         this.tokenAux = this.SiguienteToken(); 
                         this.Print();
                         if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
+
+                            this.traduccion += this.Tabulacion(this.tab);
+                            this.traduccion += "print("
         
                             this.tokenAux = this.SiguienteToken(); 
                             this.Expresion();
                             if (this.TokenCorrecto(this.tokenAux,"tk_pc")){
+
+                                if (this.salto == 1){
+                                    this.traduccion += `, end="")`;
+                                } else if (this.salto == 2){
+                                    this.traduccion += `)`;
+                                }
             
                                 this.tokenAux = this.SiguienteToken(); 
                                 if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
+
+                                    this.traduccion += "\n";
                 
                                     this.tokenAux = this.SiguienteToken();      
                                     this.ListaDeclarariones(); 
@@ -605,14 +740,20 @@ class Sintactico{
 
         if (this.TokenCorrecto(this.tokenAux,"tk_igual")){
 
+            this.traduccion += " =";
+
             this.tokenAux = this.SiguienteToken(); 
             this.Expresion();     
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
 
+            this.traduccion += "(";
+
             this.tokenAux = this.SiguienteToken();
             this.Valores();
             if (this.TokenCorrecto(this.tokenAux,"tk_pc")){
+
+                this.traduccion += ")";
 
                 this.tokenAux = this.SiguienteToken();      
                 this.ListaDeclarariones();
@@ -625,9 +766,13 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_add")){
 
+            this.traduccion += "+=1";
+
             this.tokenAux = this.SiguienteToken();      
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_sus")){
+
+            this.traduccion += "-=1";
 
             this.tokenAux = this.SiguienteToken();      
 
@@ -642,6 +787,8 @@ class Sintactico{
     Variable(){
 
         if (this.TokenCorrecto(this.tokenAux,"tk_id")){
+
+            this.traduccion += this.tokenAux.getLexema();
 
             this.tokenAux = this.SiguienteToken();
             this.AsignacionVariable();
@@ -659,6 +806,8 @@ class Sintactico{
 
         if (this.TokenCorrecto(this.tokenAux,"tk_igual")){
 
+            this.traduccion += " = ";
+
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
 
@@ -668,6 +817,8 @@ class Sintactico{
     OtraVariable(){
 
         if (this.TokenCorrecto(this.tokenAux,"tk_coma")){
+
+            this.traduccion = ", ";
 
             this.tokenAux = this.SiguienteToken();
             this.Variable();
@@ -690,15 +841,26 @@ class Sintactico{
                 this.tokenAux = this.SiguienteToken();
                 if (this.TokenCorrecto(this.tokenAux,"tk_id")){
 
+                    this.traduccion += this.Tabulacion(this.tab);
+                    this.traduccion += "def " + this.tokenAux.getLexema();
+
                     this.tokenAux = this.SiguienteToken();
                     if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
+
+                        this.traduccion += "(";
 
                         this.tokenAux = this.SiguienteToken();
                         this.Parametros();
                         if (this.TokenCorrecto(this.tokenAux,"tk_pc")){
 
+                            this.traduccion += "):\n";
+                            this.traduccion += this.Tabulacion(this.tab);
+                            this.traduccion += "    pass";
+
                             this.tokenAux = this.SiguienteToken();
                             if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
+
+                                this.traduccion += "\n";
 
                                 this.tokenAux = this.SiguienteToken();      
                                 this.LInterfaz();  
@@ -735,9 +897,13 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_int") || this.TokenCorrecto(this.tokenAux,"tk_double") || this.TokenCorrecto(this.tokenAux,"tk_string") || this.TokenCorrecto(this.tokenAux,"tk_boolean") || this.TokenCorrecto(this.tokenAux,"tk_char")){
 
+            this.traduccion += this.Tabulacion(this.tab);
+
             this.tokenAux = this.SiguienteToken();
             this.Variable();
             if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
+
+                this.traduccion += "\n";
 
                 this.tokenAux = this.SiguienteToken();      
                 this.LInterfaz();
@@ -750,13 +916,20 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_id")){
 
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += this.tokenAux.getLexema();
+
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_igual")){
+
+                this.traduccion += " = ";
 
                 this.tokenAux = this.SiguienteToken();
                 this.Expresion();
                 this.OtraAsignacion();
                 if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
+
+                    this.traduccion += "\n";
 
                     this.tokenAux = this.SiguienteToken();      
                     this.LInterfaz();
@@ -787,8 +960,12 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_id")){
 
+            this.traduccion += this.tokenAux.getLexema();
+
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_igual")){
+
+                this.traduccion += " = ";
 
                 this.tokenAux = this.SiguienteToken();
                 this.Expresion();
@@ -811,11 +988,17 @@ class Sintactico{
 
         if (this.TokenCorrecto(this.tokenAux,"tk_coma")){
 
+            this.traduccion += ", ";
+
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_id")){
 
+                this.traduccion += this.tokenAux.getLexema();
+
                 this.tokenAux = this.SiguienteToken();
                 if (this.TokenCorrecto(this.tokenAux,"tk_igual")){
+
+                    this.traduccion += " = ";
     
                     this.tokenAux = this.SiguienteToken();
                     this.Expresion();
@@ -845,6 +1028,10 @@ class Sintactico{
 
         if (this.TokenCorrecto(this.tokenAux,"tk_if")){
 
+            this.traduccion += "\n";
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += "if";
+
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
 
@@ -855,9 +1042,15 @@ class Sintactico{
                     this.tokenAux = this.SiguienteToken();
                     if (this.TokenCorrecto(this.tokenAux,"tk_la")){
 
+                        this.traduccion += ":\n";
+                        this.tab++;
+
                         this.tokenAux = this.SiguienteToken();
                         this.Instrucciones();
                         if (this.TokenCorrecto(this.tokenAux,"tk_lc")){
+
+                            this.traduccion += "\n";
+                            this.tab--;
 
                             this.tokenAux = this.SiguienteToken();
                             this.Elseif();
@@ -892,27 +1085,44 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_for")){
 
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += "for x in range";
+
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
+
+                this.traduccion += "(";
 
                 this.tokenAux = this.SiguienteToken();
                 this.Dafor();
                 if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
 
+                    this.traduccion += ",";
+
                     this.tokenAux = this.SiguienteToken();
                     this.Expresion();
                     if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
+
+                        this.traduccion += ",";
 
                         this.tokenAux = this.SiguienteToken();
                         this.Expresion();
                         if (this.TokenCorrecto(this.tokenAux,"tk_pc")){
 
+                            this.traduccion += ")";
+
                             this.tokenAux = this.SiguienteToken();
                             if (this.TokenCorrecto(this.tokenAux,"tk_la")){
+
+                                this.traduccion += ":\n";
+                                this.tab++;
 
                                 this.tokenAux = this.SiguienteToken();
                                 this.Instrucciones();
                                 if (this.TokenCorrecto(this.tokenAux,"tk_lc")){
+
+                                    this.traduccion += "\n";
+                                    this.tab--;
                     
                                     this.tokenAux = this.SiguienteToken();
                                     this.Instrucciones();     
@@ -961,6 +1171,9 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_while")){
 
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += "while "
+
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
 
@@ -970,10 +1183,16 @@ class Sintactico{
     
                     this.tokenAux = this.SiguienteToken();
                     if (this.TokenCorrecto(this.tokenAux,"tk_la")){
+
+                        this.traduccion += ":\n";
+                        this.tab++;
         
                         this.tokenAux = this.SiguienteToken();
                         this.Instrucciones();
                         if (this.TokenCorrecto(this.tokenAux,"tk_lc")){
+
+                            this.traduccion += "\n";
+                            this.tab--;
             
                             this.tokenAux = this.SiguienteToken();      
                             this.Instrucciones();
@@ -1006,8 +1225,14 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_do")){
 
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += " while True";
+
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_la")){
+
+                this.traduccion += ":\n";
+                this.tab++;
 
                 this.tokenAux = this.SiguienteToken();
                 this.Instrucciones();
@@ -1015,6 +1240,9 @@ class Sintactico{
 
                     this.tokenAux = this.SiguienteToken();
                     if (this.TokenCorrecto(this.tokenAux,"tk_while")){
+
+                        this.traduccion += this.Tabulacion(this.tab);
+                        this.traduccion += "if"
         
                         this.tokenAux = this.SiguienteToken();
                         if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
@@ -1025,6 +1253,16 @@ class Sintactico{
 
                                 this.tokenAux = this.SiguienteToken();
                                 if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
+
+                                    this.traduccion += ":\n";
+                                    this.traduccion += this.Tabulacion(this.tab);
+                                    this.traduccion += "    continue\n";
+                                    this.traduccion += this.Tabulacion(this.tab);
+                                    this.traduccion += "else:\n"
+                                    this.traduccion += this.Tabulacion(this.tab);
+                                    this.traduccion += "    break\n";
+                                    this.traduccion += "\n";
+                                    this.tab--;
                                     
                                     this.tokenAux = this.SiguienteToken();      
                                     this.Instrucciones();
@@ -1069,9 +1307,14 @@ class Sintactico{
             }    
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_break")){
+
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += "break";
                                     
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
+
+                this.traduccion += "\n";
                 
                 this.tokenAux = this.SiguienteToken();      
                 this.Instrucciones();
@@ -1084,9 +1327,14 @@ class Sintactico{
             
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_continue")){
+
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += "continue";
                                     
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
+
+                this.traduccion += "\n";
                 
                 this.tokenAux = this.SiguienteToken();      
                 this.Instrucciones();
@@ -1099,10 +1347,15 @@ class Sintactico{
             
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_return")){
+
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += "return";
                                     
             this.tokenAux = this.SiguienteToken();
             this.Return();
             if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
+
+                this.traduccion += "\n";
                 
                 this.tokenAux = this.SiguienteToken();      
                 this.Instrucciones();
@@ -1116,9 +1369,13 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_int") || this.TokenCorrecto(this.tokenAux,"tk_double") || this.TokenCorrecto(this.tokenAux,"tk_string") || this.TokenCorrecto(this.tokenAux,"tk_boolean") || this.TokenCorrecto(this.tokenAux,"tk_char")){
 
+            this.traduccion += this.Tabulacion(this.tab);
+
             this.tokenAux = this.SiguienteToken();
             this.Variable();
             if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
+
+                this.traduccion += "\n";
 
                 this.tokenAux = this.SiguienteToken();      
                 this.Instrucciones();
@@ -1131,9 +1388,14 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_id")){
 
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += this.tokenAux.getLexema();
+
             this.tokenAux = this.SiguienteToken();
             this.AsignacionLlamada();
             if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
+
+                this.traduccion += "\n";
 
                 this.tokenAux = this.SiguienteToken();      
                 this.Instrucciones();
@@ -1146,10 +1408,16 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_commentu")){
 
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += "#" + this.tokenAux.getLexema();
+
             this.tokenAux = this.SiguienteToken();      
             this.Instrucciones();
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_commentm")){
+
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += `'''` + this.tokenAux.getLexema() + `'''`+"\n";
 
             this.tokenAux = this.SiguienteToken();      
             this.Instrucciones();
@@ -1168,13 +1436,24 @@ class Sintactico{
                         this.tokenAux = this.SiguienteToken(); 
                         this.Print();
                         if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
+
+                            this.traduccion += this.Tabulacion(this.tab);
+                            this.traduccion += "print("
         
                             this.tokenAux = this.SiguienteToken(); 
                             this.Expresion();
                             if (this.TokenCorrecto(this.tokenAux,"tk_pc")){
+
+                                if (this.salto == 1){
+                                    this.traduccion += `, end="")`;
+                                } else if (this.salto == 2){
+                                    this.traduccion += `)`;
+                                }
             
                                 this.tokenAux = this.SiguienteToken(); 
                                 if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
+
+                                    this.traduccion += "\n";
                 
                                     this.tokenAux = this.SiguienteToken();      
                                     this.Instrucciones();
@@ -1223,27 +1502,31 @@ class Sintactico{
 
         if (this.TokenCorrecto(this.tokenAux,"tk_id")){
 
+            this.traduccion += " " + this.tokenAux.getLexema();
+
             this.tokenAux = this.SiguienteToken();
             this.IDLLamada();
             this.EPrima();
+
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_cadena")){
+
+            this.traduccion += " " + this.tokenAux.getLexema();
 
             this.tokenAux = this.SiguienteToken();
             this.EPrima();
 
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_true")){
+
+            this.traduccion += " True";
 
             this.tokenAux = this.SiguienteToken();
             this.EPrima();
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_false")){
 
-            this.tokenAux = this.SiguienteToken();
-            this.EPrima();
-                  
-        } else if (this.TokenCorrecto(this.tokenAux,"tk_true")){
+            this.traduccion += " False";
 
             this.tokenAux = this.SiguienteToken();
             this.EPrima();
@@ -1251,11 +1534,15 @@ class Sintactico{
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_entero")){
 
+            this.traduccion += " " + this.tokenAux.getLexema();
+
             this.tokenAux = this.SiguienteToken();
             this.EPrima();
 
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_decimal")){
+
+            this.traduccion += " " + this.tokenAux.getLexema();
 
             this.tokenAux = this.SiguienteToken();
             this.EPrima();
@@ -1263,14 +1550,41 @@ class Sintactico{
                    
         } else if (this.TokenCorrecto(this.tokenAux,"tk_menos")){
 
+            this.traduccion += " -";
+
             this.tokenAux = this.SiguienteToken();
+            this.Expresion();
             this.EPrima();
 
-                  
+
+        } else if (this.TokenCorrecto(this.tokenAux,"tk_not")){
+
+            this.traduccion += " !";
+
+            this.tokenAux = this.SiguienteToken();
+            this.Expresion();
+            this.traduccion = this.traduccion.replace("! ", "!");
+            this.EPrima();
+
         } else if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
 
+            this.traduccion += " (";
+
             this.tokenAux = this.SiguienteToken();
+            this.Expresion
             this.EPrima();
+            if (this.TokenCorrecto(this.tokenAux,"tk_pc")){
+
+                this.traduccion += ")";
+
+                this.tokenAux = this.SiguienteToken();
+                this.EPrima();
+                      
+            } else {
+                this.cErrores++;
+                this.errorSyntax = true;            
+                this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba )"));
+            }
                   
         }
         
@@ -1282,6 +1596,8 @@ class Sintactico{
 
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_id")){
+
+                this.traduccion += this.tokenAux.getLexema();
 
                 this.tokenAux = this.SiguienteToken();
                 this.OtroParametro();
@@ -1302,6 +1618,8 @@ class Sintactico{
 
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_id")){
+
+                this.traduccion += this.tokenAux.getLexema();
 
                 this.tokenAux = this.SiguienteToken();
                 this.OtroParametro();
@@ -1324,6 +1642,8 @@ class Sintactico{
 
         if (this.TokenCorrecto(this.tokenAux,"tk_coma")){
 
+            this.traduccion += ", ";
+
             this.tokenAux = this.SiguienteToken();
             this.Parametro();
                   
@@ -1335,9 +1655,13 @@ class Sintactico{
 
         if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
 
+            this.traduccion += "(";
+
             this.tokenAux = this.SiguienteToken();
             this.Valores();
             if (this.TokenCorrecto(this.tokenAux,"tk_pc")){
+
+                this.traduccion += ")";
 
                 this.tokenAux = this.SiguienteToken();
                       
@@ -1359,6 +1683,9 @@ class Sintactico{
     OtroValor(){
 
         if (this.TokenCorrecto(this.tokenAux,"tk_coma")){
+
+            this.traduccion += ", ";
+
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
             this.OtroValor();
@@ -1374,39 +1701,44 @@ class Sintactico{
 
         if (this.TokenCorrecto(this.tokenAux,"tk_id")){
 
+            this.traduccion += " " + this.tokenAux.getLexema();
+
             this.tokenAux = this.SiguienteToken();
             this.IDLLamada();
             this.EPrima();
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_cadena")){
 
+            this.traduccion += " " + this.tokenAux.getLexema();
+
             this.tokenAux = this.SiguienteToken();
             this.EPrima();
 
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_true")){
+
+            this.traduccion += " True";
 
             this.tokenAux = this.SiguienteToken();
             this.EPrima();
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_false")){
 
-            this.tokenAux = this.SiguienteToken();
-            this.EPrima();
-                  
-        } else if (this.TokenCorrecto(this.tokenAux,"tk_true")){
+            this.traduccion += " False";
 
             this.tokenAux = this.SiguienteToken();
             this.EPrima();
-
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_entero")){
 
+            this.traduccion += " " + this.tokenAux.getLexema();
+
             this.tokenAux = this.SiguienteToken();
             this.EPrima();
-
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_decimal")){
+
+            this.traduccion += " " + this.tokenAux.getLexema();
 
             this.tokenAux = this.SiguienteToken();
             this.EPrima();
@@ -1414,14 +1746,40 @@ class Sintactico{
                    
         } else if (this.TokenCorrecto(this.tokenAux,"tk_menos")){
 
+            this.traduccion += " -";
+
             this.tokenAux = this.SiguienteToken();
+            this.Expresion();
             this.EPrima();
 
-                  
+        } else if (this.TokenCorrecto(this.tokenAux,"tk_not")){
+
+            this.traduccion += " !";
+
+            this.tokenAux = this.SiguienteToken();
+            this.Expresion();
+            this.traduccion = this.traduccion.replace("! ", "!");
+            this.EPrima();
+
         } else if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
 
+            this.traduccion += " (";
+
             this.tokenAux = this.SiguienteToken();
+            this.Expresion
             this.EPrima();
+            if (this.TokenCorrecto(this.tokenAux,"tk_pc")){
+
+                this.traduccion += ")";
+
+                this.tokenAux = this.SiguienteToken();
+                this.EPrima();
+                      
+            } else {
+                this.cErrores++;
+                this.errorSyntax = true;            
+                this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba )"));
+            }
                   
         } else {
             this.cErrores++;
@@ -1435,11 +1793,15 @@ class Sintactico{
 
         if (this.TokenCorrecto(this.tokenAux,"tk_mayor")){
 
+            this.traduccion += " >";
+
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
             this.EPrima();
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_menor")){
+
+            this.traduccion += " <";
 
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
@@ -1447,11 +1809,15 @@ class Sintactico{
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_mayorigual")){
 
+            this.traduccion += " >=";
+
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
             this.EPrima();
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_menorigual")){
+
+            this.traduccion += " <=";
 
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
@@ -1459,11 +1825,15 @@ class Sintactico{
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_igualigual")){
 
+            this.traduccion += " ==";
+
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
             this.EPrima();
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_noigual")){
+
+            this.traduccion += " !=";
 
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
@@ -1471,11 +1841,15 @@ class Sintactico{
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_mas")){
 
+            this.traduccion += " +";
+
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
             this.EPrima();
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_menos")){
+
+            this.traduccion += " -";
 
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
@@ -1483,11 +1857,15 @@ class Sintactico{
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_mul")){
 
+            this.traduccion += " *";
+
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
             this.EPrima();
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_div")){
+
+            this.traduccion += " /";
 
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
@@ -1495,17 +1873,15 @@ class Sintactico{
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_and")){
 
+            this.traduccion += " &&";
+
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
             this.EPrima();
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_or")){
 
-            this.tokenAux = this.SiguienteToken();
-            this.Expresion();
-            this.EPrima();
-                  
-        } else if (this.TokenCorrecto(this.tokenAux,"tk_not")){
+            this.traduccion += " ||";
 
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
@@ -1513,15 +1889,21 @@ class Sintactico{
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_xor")){
 
+            this.traduccion += " ^";
+
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
             this.EPrima();
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_add")){
 
+            this.traduccion += " +=1";
+
             this.tokenAux = this.SiguienteToken();
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_sus")){
+
+            this.traduccion += " -=1";
 
             this.tokenAux = this.SiguienteToken();
                   
@@ -1542,6 +1924,9 @@ class Sintactico{
 
         if (this.TokenCorrecto(this.tokenAux,"tk_if")){
 
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += "elif";
+
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
 
@@ -1552,9 +1937,15 @@ class Sintactico{
                     this.tokenAux = this.SiguienteToken();
                     if (this.TokenCorrecto(this.tokenAux,"tk_la")){
 
+                        this.traduccion += ":\n";
+                        this.tab++;
+
                         this.tokenAux = this.SiguienteToken();
                         this.Instrucciones();
                         if (this.TokenCorrecto(this.tokenAux,"tk_lc")){
+
+                            this.traduccion += "\n";
+                            this.tab--;
 
                             this.tokenAux = this.SiguienteToken();
                             this.Elseif();
@@ -1587,9 +1978,16 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_la")){
 
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += "else:\n";
+            this.tab++;
+
             this.tokenAux = this.SiguienteToken();
             this.Instrucciones();
             if (this.TokenCorrecto(this.tokenAux,"tk_lc")){
+
+                this.traduccion += "\n";
+                this.tab--;
 
                 this.tokenAux = this.SiguienteToken();
                       
@@ -1610,8 +2008,10 @@ class Sintactico{
     Print(){
 
         if (this.TokenCorrecto(this.tokenAux,"tk_print")){
+            this.salto = 1;
             this.tokenAux = this.SiguienteToken();
         } else if (this.TokenCorrecto(this.tokenAux,"tk_println")){
+            this.salto = 2;
             this.tokenAux = this.SiguienteToken();
         } 
 
@@ -1644,6 +2044,10 @@ class Sintactico{
             return this.tokens[this.Numtoken];
         } 
         return null;
+    }
+
+    Tabulacion(n){
+        return "    ".repeat(n);
     }
 
 }

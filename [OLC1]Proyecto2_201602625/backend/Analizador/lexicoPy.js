@@ -387,10 +387,10 @@ class Lexico{
                         break;
                     case 8: //comentarios y simbolo division
                         if (c == "/"){
-                            this.lexemaact += c;
+                            this.lexemaact = "";
                             this.estado = 15;
                         } else if (c == "*"){
-                            this.lexemaact += c
+                            this.lexemaact = "";
                             this.estado = 16;
                         } else {
                             this.cTokens++;
@@ -514,15 +514,14 @@ class Lexico{
                             this.lexemaact += c;
                             this.estado = 16;
                         } else {
-                            this.lexemaact += c;
                             this.estado = 17;
                         }
+                        break;
                     case 17: // estado aceptacion comentarios multi-linea o retorno a esta 16
                         if (c != "/"){
-                            this.lexemaact += c;
+                            this.lexemaact += "*" + c;
                             this.estado = 16;
                         } else {
-                            this.lexemaact += c;
                             this.cTokens++;
                             this.tokens.push(new Token(this.cTokens, this.fila, this.columna, "Comentario", this.lexemaact, "tk_commentm"));
                             this.lexemaact = "";
@@ -536,8 +535,8 @@ class Lexico{
             } 
         }
 
-        this.cTokens++;
-        this.tokens.push(new Token(this.cTokens, this.fila, this.columna, "Fin de cadena", "#", "tk_#"))
+        //this.cTokens++;
+        //this.tokens.push(new Token(this.cTokens, this.fila, this.columna, "Fin de cadena", "#", "tk_#"))
 
     }
 

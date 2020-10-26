@@ -259,9 +259,11 @@ EXPRESION: tk_id ID_LLAMADA { $$ = " " + $1; }
 
     | EXPRESION OPERADOR { $$ = $1 + $2; } 
 
-    | tk_menos EXPRESION { $$ = "- " + $2; } 
+    | tk_menos EXPRESION { $$ = " -" + $2; } 
 
-    | tk_pa EXPRESION tk_pc { $$ = "( " + $2 + ")"; } 
+    | tk_not EXPRESION { $$ = " !" + $2; } 
+
+    | tk_pa EXPRESION tk_pc { $$ = " ( " + $2 + ")"; } 
 
     | error FINERROR { $$ = "";  };
 
@@ -294,8 +296,6 @@ OPERADOR: tk_mayor EXPRESION { $$ = " > " + $2; }
     | tk_and EXPRESION { $$ = " && " + $2; } 
 
     | tk_or EXPRESION { $$ = " || " + $2; } 
-
-    | tk_not EXPRESION { $$ = " !" + $2; } 
 
     | tk_xor EXPRESION { $$ = " ^ " + $2; } 
 

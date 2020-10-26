@@ -557,7 +557,12 @@ EXPRESION: tk_id ID_LLAMADA {   $$ = new Nodo("EXPRESION","");
     | tk_menos EXPRESION {  $$ = new Nodo("EXPRESION","");
                             $$.agregarHijo(new Nodo($1,"operador"));
                             $$.agregarHijo($2);
-                            } 
+                            }
+
+    | tk_not EXPRESION {  $$ = new Nodo("EXPRESION","");
+                        $$.agregarHijo(new Nodo($1,"operador"));
+                        $$.agregarHijo($2);
+                        } 
 
     | tk_pa EXPRESION tk_pc {  $$ = new Nodo("EXPRESION","");
                                $$.agregarHijo(new Nodo($1,"simbolo"));
@@ -637,11 +642,6 @@ OPERADOR: tk_mayor EXPRESION { $$ = new Nodo("OPERADOR","");
                         } 
 
     | tk_or EXPRESION { $$ = new Nodo("OPERADOR","");
-                         $$.agregarHijo(new Nodo($1,"operador"));
-                         $$.agregarHijo($2);
-                        } 
-
-    | tk_not EXPRESION { $$ = new Nodo("OPERADOR","");
                          $$.agregarHijo(new Nodo($1,"operador"));
                          $$.agregarHijo($2);
                         } 

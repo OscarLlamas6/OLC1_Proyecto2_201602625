@@ -3,6 +3,7 @@ var parser = require('./Gramatica');
 var traductorJs = require('./Traductor');
 var Lexico = require('./lexicoPy');
 var Sintactico = require('./sintacticoPy');
+var Py = require('../AST/archivoPy');
 
 
 fs.readFile('./entrada.txt', (err, data) => {
@@ -18,7 +19,8 @@ fs.readFile('./entrada.txt', (err, data) => {
     console.log(syntax.errorSyntax);
     console.log(syntax.tokens.length);
     console.log(syntax.errores.length);
-
+    var Salida = new Py();
+    Salida.crearArchivo(syntax.traduccion);
     
 });
 
