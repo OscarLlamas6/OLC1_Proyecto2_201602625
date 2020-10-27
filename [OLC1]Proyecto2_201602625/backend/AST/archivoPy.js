@@ -5,7 +5,7 @@ class archivoPy{
     }
     
     crearArchivo(contenido){
-        fs.writeFile('./Python.txt', contenido, (err) => {
+        fs.writeFile('./Salida/SalidaPy.py', contenido, (err) => {
         if (err) throw err;
         console.log('Traduccion a Python exitosa.');
         });

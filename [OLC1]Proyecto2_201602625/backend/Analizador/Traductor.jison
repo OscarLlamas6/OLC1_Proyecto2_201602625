@@ -9,7 +9,9 @@
 %lex
 %options case-sensitive
 %%
-                    
+
+[/][/].*                            %{ return 'tk_commentu'; %}
+[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/] %{ return 'tk_commentm'; %}                 
 "args"                  %{ return 'tk_args'; %}
 "public"                %{ return 'tk_public'; %}
 "class"                 %{ return 'tk_class'; %}
@@ -67,8 +69,6 @@
 [0-9]+"."[0-9]+\b             %{ return 'tk_decimal';  %}
 [0-9]+\b                      %{ return 'tk_entero';  %}
 ([a-zA-Z])[a-zA-Z0-9_]*     %{ return 'tk_id'; %}
-[/][/].*                      %{ return 'tk_commentu'; %}
-[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/] %{ return 'tk_commentm'; %}
 [ \t\r\n\f] %{  /*Los Ignoramos*/   %}
 <<EOF>>     %{  return 'EOF';   %}
 .          { }

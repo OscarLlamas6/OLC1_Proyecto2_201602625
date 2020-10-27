@@ -24,6 +24,7 @@ class Lexico{
         this.errores = [];
         this.errorLex = false;
         this.entrada += " \n";
+        this.fila = 1;
         for (var i = 0, c=''; c = this.entrada.charAt(i); i++) {             
             this.columna++;
             this.anular = false;

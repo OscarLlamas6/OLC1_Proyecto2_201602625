@@ -59,3 +59,12 @@ function TraduccionJS(){
     window.open(url);
 
 }
+
+
+function TraduccionPy(){
+
+    puerto = 3000;
+    var url='http://localhost:'+ puerto +'/descargarPy/';
+    window.open(url);
+
+}

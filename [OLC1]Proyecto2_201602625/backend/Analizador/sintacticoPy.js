@@ -2050,6 +2050,19 @@ class Sintactico{
         return "    ".repeat(n);
     }
 
+    getErrores(){
+        var concatena = "";
+
+            if (Object.keys(this.errores).length > 0) {
+                this.errores.forEach(element => {
+                    concatena += element.getNo() + ". " + "Fil: " + element.getFila() + " Col: " + element.getColumna() + " Tipo: " + element.getTipo() + " Desc. " + element.getDescripcion() + "\n";
+                });
+            } else {
+                concatena = "No se encontraron errores lexicos ni sintacticos.";
+            }        
+        return concatena;
+    }
+
 }
 
 module.exports = Sintactico;

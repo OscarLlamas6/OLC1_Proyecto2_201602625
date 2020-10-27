@@ -178,6 +178,11 @@ case 10:
                                         this.$.agregarHijo(new Nodo($$[$0],"simbolo")); 
                                       
 break;
+case 11:
+    this.$ = new Nodo("DPROGRAMA","");
+                      this.$.agregarHijo($$[$0]);
+                            
+break;
 case 12:
  this.$ = new Nodo("DPROGRAMA","");
               this.$.agregarHijo($$[$0]);
@@ -486,6 +491,11 @@ case 61:
                                         this.$.agregarHijo(new Nodo($$[$0],"simbolo")); 
                                       
 break;
+case 62:
+     this.$ = new Nodo("DINSTRUCCION","");
+                                this.$.agregarHijo($$[$0]);
+                            
+break;
 case 63:
  this.$ = new Nodo("DINSTRUCCION","");
               this.$.agregarHijo($$[$0]);
@@ -648,6 +658,16 @@ case 100:
  this.$ = new Nodo("RETURN","");
                     this.$.agregarHijo(new Nodo("E","simbolo"));
                   
+break;
+case 101:
+   this.$ = new Nodo("COMENTARIO","");
+                            this.$.agregarHijo(new Nodo($$[$0],"comentario")); 
+                            
+break;
+case 102:
+   this.$ = new Nodo("COMENTARIO","");
+                      this.$.agregarHijo(new Nodo($$[$0],"comentario")); 
+                      
 break;
 case 103:
  this.$ = new Nodo("DECLARACION","");
@@ -1332,119 +1352,119 @@ options: {"case-sensitive":true},
 performAction: function anonymous(yy,yy_,$avoiding_name_collisions,YY_START) {
 var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
-case 0: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 45; 
+case 0: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "comentario", yy_.yytext)); Numero++;  return 87; 
 break;
-case 1: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 34; 
+case 1: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "comentario", yy_.yytext)); Numero++;  return 88; 
 break;
-case 2: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 36; 
+case 2: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 45; 
 break;
-case 3: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 37; 
+case 3: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 34; 
 break;
-case 4: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 50; 
+case 4: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 36; 
 break;
-case 5: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 53; 
+case 5: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 37; 
 break;
-case 6: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 42; 
+case 6: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 50; 
 break;
-case 7: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 51; 
+case 7: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 53; 
 break;
-case 8: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 40; 
+case 8: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 42; 
 break;
-case 9: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 17; 
+case 9: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 51; 
 break;
-case 10: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 20; 
+case 10: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 40; 
 break;
-case 11: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 21; 
+case 11: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 17; 
 break;
-case 12: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 9; 
+case 12: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 20; 
 break;
-case 13: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 32; 
+case 13: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 21; 
 break;
-case 14: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 56; 
+case 14: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 9; 
 break;
-case 15: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 57; 
+case 15: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 32; 
 break;
-case 16: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 58; 
+case 16: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 56; 
 break;
-case 17: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 52; 
+case 17: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 57; 
 break;
-case 18: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 67; 
+case 18: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 58; 
 break;
-case 19: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 68; 
+case 19: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 52; 
 break;
-case 20: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 39; 
+case 20: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 67; 
 break;
-case 21: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 35; 
+case 21: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 68; 
 break;
-case 22: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 41; 
+case 22: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 39; 
 break;
-case 23: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "funcion", yy_.yytext)); Numero++; return 93; 
+case 23: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 35; 
 break;
-case 24: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "funcion", yy_.yytext)); Numero++; return 94; 
+case 24: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "palabra reservada", yy_.yytext)); Numero++; return 41; 
 break;
-case 25: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador logico", yy_.yytext)); Numero++; return 82; 
+case 25: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "funcion", yy_.yytext)); Numero++; return 93; 
 break;
-case 26: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador logico", yy_.yytext)); Numero++; return 83; 
+case 26: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "funcion", yy_.yytext)); Numero++; return 94; 
 break;
-case 27: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador aritmetico", yy_.yytext)); Numero++; return 85; 
+case 27: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador logico", yy_.yytext)); Numero++; return 82; 
 break;
-case 28: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador aritmetico", yy_.yytext)); Numero++; return 86; 
+case 28: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador logico", yy_.yytext)); Numero++; return 83; 
 break;
-case 29: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador relacional", yy_.yytext)); Numero++; return 75; 
+case 29: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador aritmetico", yy_.yytext)); Numero++; return 85; 
 break;
-case 30: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador relacional", yy_.yytext)); Numero++; return 76; 
+case 30: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador aritmetico", yy_.yytext)); Numero++; return 86; 
 break;
-case 31: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador relacional", yy_.yytext)); Numero++; return 77; 
+case 31: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador relacional", yy_.yytext)); Numero++; return 75; 
 break;
-case 32: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador relacional", yy_.yytext)); Numero++; return 78; 
+case 32: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador relacional", yy_.yytext)); Numero++; return 76; 
 break;
-case 33: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador relacional", yy_.yytext)); Numero++; return 73; 
+case 33: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador relacional", yy_.yytext)); Numero++; return 77; 
 break;
-case 34: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador relacional", yy_.yytext)); Numero++; return 74; 
+case 34: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador relacional", yy_.yytext)); Numero++; return 78; 
 break;
-case 35: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador logico", yy_.yytext)); Numero++; return 71; 
+case 35: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador relacional", yy_.yytext)); Numero++; return 73; 
 break;
-case 36: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador logico", yy_.yytext)); Numero++; return 84; 
+case 36: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador relacional", yy_.yytext)); Numero++; return 74; 
 break;
-case 37: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 31; 
+case 37: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador logico", yy_.yytext)); Numero++; return 71; 
 break;
-case 38: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 43; 
+case 38: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador logico", yy_.yytext)); Numero++; return 84; 
 break;
-case 39: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 44; 
+case 39: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 31; 
 break;
-case 40: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 13; 
+case 40: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 43; 
 break;
-case 41: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 15; 
+case 41: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 44; 
 break;
-case 42: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 10; 
+case 42: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 13; 
 break;
-case 43: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 12; 
+case 43: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 15; 
 break;
-case 44: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 19; 
+case 44: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 10; 
 break;
-case 45: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador aritmetico", yy_.yytext)); Numero++; return 79; 
+case 45: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 12; 
 break;
-case 46: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador aritmetico", yy_.yytext)); Numero++; return 70; 
+case 46: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 19; 
 break;
-case 47: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador aritmetico", yy_.yytext)); Numero++; return 80; 
+case 47: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador aritmetico", yy_.yytext)); Numero++; return 79; 
 break;
-case 48: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador aritmetico", yy_.yytext)); Numero++; return 81; 
+case 48: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador aritmetico", yy_.yytext)); Numero++; return 70; 
 break;
-case 49: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 30; 
+case 49: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador aritmetico", yy_.yytext)); Numero++; return 80; 
 break;
-case 50: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 'tk_punto'; 
+case 50: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "operador aritmetico", yy_.yytext)); Numero++; return 81; 
 break;
-case 51: yy_.yytext = yy_.yytext.substr(1, yy_.yyleng-2); miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "cadena", yy_.yytext)); Numero++; return 66; 
+case 51: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 30; 
 break;
-case 52: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "numerico", yy_.yytext)); Numero++; return 64;  
+case 52: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "simbolo", yy_.yytext)); Numero++; return 'tk_punto'; 
 break;
-case 53: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "numerico", yy_.yytext)); Numero++;  return 63;  
+case 53: yy_.yytext = yy_.yytext.substr(1, yy_.yyleng-2); miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "cadena", yy_.yytext)); Numero++; return 66; 
 break;
-case 54: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "identificador", yy_.yytext)); Numero++;  return 23; 
+case 54: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "numerico", yy_.yytext)); Numero++; return 64;  
 break;
-case 55: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "comentario", yy_.yytext)); Numero++;  return 87; 
+case 55: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "numerico", yy_.yytext)); Numero++;  return 63;  
 break;
-case 56: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "comentario", yy_.yytext)); Numero++;  return 88; 
+case 56: miLista.agregarToken(new Token(Numero, yy_.yylloc.first_line, yy_.yylloc.first_column + 1, "identificador", yy_.yytext)); Numero++;  return 23; 
 break;
 case 57:  /*Los Ignoramos*/   
 break;
@@ -1454,7 +1474,7 @@ case 59: miListaE.agregarError(new Error(NumeroE, yy_.yylloc.first_line, yy_.yyl
 break;
 }
 },
-rules: [/^(?:args\b)/,/^(?:public\b)/,/^(?:class\b)/,/^(?:interface\b)/,/^(?:int\b)/,/^(?:char\b)/,/^(?:String\b)/,/^(?:double\b)/,/^(?:void\b)/,/^(?:for\b)/,/^(?:while\b)/,/^(?:do\b)/,/^(?:if\b)/,/^(?:else\b)/,/^(?:break\b)/,/^(?:continue\b)/,/^(?:return\b)/,/^(?:boolean\b)/,/^(?:true\b)/,/^(?:false\b)/,/^(?:static\b)/,/^(?:private\b)/,/^(?:main\b)/,/^(?:System\.out\.println\b)/,/^(?:System\.out\.print\b)/,/^(?:&&)/,/^(?:\|\|)/,/^(?:\+\+)/,/^(?:--)/,/^(?:>=)/,/^(?:<=)/,/^(?:==)/,/^(?:!=)/,/^(?:>)/,/^(?:<)/,/^(?:!)/,/^(?:\^)/,/^(?:,)/,/^(?:\[)/,/^(?:\])/,/^(?:\{)/,/^(?:\})/,/^(?:\()/,/^(?:\))/,/^(?:;)/,/^(?:\+)/,/^(?:-)/,/^(?:\*)/,/^(?:\/)/,/^(?:=)/,/^(?:\.)/,/^(?:"[^\"]*")/,/^(?:[0-9]+\.[0-9]+\b)/,/^(?:[0-9]+\b)/,/^(?:([a-zA-Z_])[a-zA-Z0-9_]*)/,/^(?:[\/][\/].*)/,/^(?:[\/][*][^*]*[*]+([^\/*][^*]*[*]+)*[\/])/,/^(?:[ \t\r\n\f])/,/^(?:$)/,/^(?:.)/],
+rules: [/^(?:[\/][\/].*)/,/^(?:[\/][*][^*]*[*]+([^\/*][^*]*[*]+)*[\/])/,/^(?:args\b)/,/^(?:public\b)/,/^(?:class\b)/,/^(?:interface\b)/,/^(?:int\b)/,/^(?:char\b)/,/^(?:String\b)/,/^(?:double\b)/,/^(?:void\b)/,/^(?:for\b)/,/^(?:while\b)/,/^(?:do\b)/,/^(?:if\b)/,/^(?:else\b)/,/^(?:break\b)/,/^(?:continue\b)/,/^(?:return\b)/,/^(?:boolean\b)/,/^(?:true\b)/,/^(?:false\b)/,/^(?:static\b)/,/^(?:private\b)/,/^(?:main\b)/,/^(?:System\.out\.println\b)/,/^(?:System\.out\.print\b)/,/^(?:&&)/,/^(?:\|\|)/,/^(?:\+\+)/,/^(?:--)/,/^(?:>=)/,/^(?:<=)/,/^(?:==)/,/^(?:!=)/,/^(?:>)/,/^(?:<)/,/^(?:!)/,/^(?:\^)/,/^(?:,)/,/^(?:\[)/,/^(?:\])/,/^(?:\{)/,/^(?:\})/,/^(?:\()/,/^(?:\))/,/^(?:;)/,/^(?:\+)/,/^(?:-)/,/^(?:\*)/,/^(?:\/)/,/^(?:=)/,/^(?:\.)/,/^(?:"[^\"]*")/,/^(?:[0-9]+\.[0-9]+\b)/,/^(?:[0-9]+\b)/,/^(?:([a-zA-Z_])[a-zA-Z0-9_]*)/,/^(?:[ \t\r\n\f])/,/^(?:$)/,/^(?:.)/],
 conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59],"inclusive":true}}
 });
 return lexer;

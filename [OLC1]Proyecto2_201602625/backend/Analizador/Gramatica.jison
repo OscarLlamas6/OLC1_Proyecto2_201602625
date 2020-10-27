@@ -20,7 +20,9 @@
 %lex
 %options case-sensitive
 %%
-                    
+
+[/][/].*                            %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "comentario", yytext)); Numero++;  return 'tk_commentu'; %}
+[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/] %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "comentario", yytext)); Numero++;  return 'tk_commentm'; %}                    
 "args"                  %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_args'; %}
 "public"                %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_public'; %}
 "class"                 %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_class'; %}
@@ -78,8 +80,6 @@
 [0-9]+"."[0-9]+\b             %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "numerico", yytext)); Numero++; return 'tk_decimal';  %}
 [0-9]+\b                      %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "numerico", yytext)); Numero++;  return 'tk_entero';  %}
 ([a-zA-Z_])[a-zA-Z0-9_]*     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "identificador", yytext)); Numero++;  return 'tk_id'; %}
-[/][/].*                      %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "comentario", yytext)); Numero++;  return 'tk_commentu'; %}
-[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/] %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "comentario", yytext)); Numero++;  return 'tk_commentm'; %}
 [ \t\r\n\f] %{  /*Los Ignoramos*/   %}
 <<EOF>>     %{  return 'EOF';   %}
 .          { miListaE.agregarError(new Error(NumeroE, yylloc.first_line, yylloc.first_column + 1, "Lexico", "El caracter " + yytext + " no pertenece al lenguaje.")); NumeroE++; }
@@ -181,7 +181,9 @@ DPROGRAMA: VISIBILIDAD CLASE_INTERFAZ_METODO_FUNCION {  $$ = new Nodo("DPROGRAMA
                                         $$.agregarHijo(new Nodo($3,"simbolo")); 
                                       }
 
-    | COMENTARIO
+    | COMENTARIO {    $$ = new Nodo("DPROGRAMA","");
+                      $$.agregarHijo($1);
+                            }
 
     | PRINT { $$ = new Nodo("DPROGRAMA","");
               $$.agregarHijo($1);
@@ -481,7 +483,9 @@ DINSTRUCCION: tk_if tk_pa EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc ELSEIF  {   
                                         $$.agregarHijo(new Nodo($3,"simbolo")); 
                                       }
 
-    | COMENTARIO 
+    | COMENTARIO {     $$ = new Nodo("DINSTRUCCION","");
+                                $$.agregarHijo($1);
+                            }
 
     | PRINT { $$ = new Nodo("DINSTRUCCION","");
               $$.agregarHijo($1);
@@ -669,9 +673,13 @@ RETURN: EXPRESION { $$ = new Nodo("RETURN","");
                   } ;
 
 
-COMENTARIO: tk_commentu 
+COMENTARIO: tk_commentu {   $$ = new Nodo("COMENTARIO","");
+                            $$.agregarHijo(new Nodo($1,"comentario")); 
+                            } 
 
-    | tk_commentm;
+    | tk_commentm {   $$ = new Nodo("COMENTARIO","");
+                      $$.agregarHijo(new Nodo($1,"comentario")); 
+                      } ;
 
 
 DECLARACION: TIPO_DATO VARIABLE OTRA_VARIABLE { $$ = new Nodo("DECLARACION","");
