@@ -18,7 +18,7 @@ class listaErrores{
         var contenido = `<!DOCTYPE html>
         <html>
         <body><center>
-        <h1>REPORTE DE ERRORES</h1>
+        <h1>REPORTE DE ERRORES: TRADUCTOR JS</h1>
         <table border=1>
         <tr>
             <th>No.</th>

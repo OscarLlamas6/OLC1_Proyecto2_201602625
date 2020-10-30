@@ -91,7 +91,7 @@
 
 ## Acceder a distintas sesiones del mismo contenedor
 
-    > docker exec -it <NOMBRE IMAGEN> bash
+    > docker exec -it <ID CONTENEDOR> bash
 
 ### Ejemplo:
 

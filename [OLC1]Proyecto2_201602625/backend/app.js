@@ -46,9 +46,11 @@ app.post('/Traducir/', function (req, res) {
       try {
         var lexer = new Lexico(entrada);
         lexer.Iniciar();
+        lexer.ReporteTokens();
         var syntax = new Sintactico(lexer.tokens,lexer.errores,lexer.cErrores);
         syntax.Start();
         var Salida = new Py();
+        syntax.ReporteErrores();
         Salida.crearArchivo(syntax.traduccion);
         resultadopy = "";
         resultadopy = syntax.getErrores();

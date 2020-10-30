@@ -84,7 +84,7 @@
 %start INICIO
 %% 
 
-INICIO: LISTA_DECLARACIONES EOF { $$ = $1 ; Salida.crearArchivo($$); return $$; };
+INICIO: LISTA_DECLARACIONES EOF { $$ = $1 ; $$ = $$.replace("! ", "!"); Salida.crearArchivo($$); return $$; };
 
 LISTA_DECLARACIONES: DPROGRAMA LISTA_DECLARACIONES  { $$ = $1 + $2; }
 
@@ -247,7 +247,7 @@ NUMERO: tk_entero { $$ = $1; }
     | tk_decimal { $$ = $2; } ;
 
 
-EXPRESION: tk_id ID_LLAMADA { $$ = " " + $1; } 
+EXPRESION: tk_id ID_LLAMADA { $$ = " " + $1 + $2; } 
 
     | tk_cadena { $$ = " " + $1; } 
 

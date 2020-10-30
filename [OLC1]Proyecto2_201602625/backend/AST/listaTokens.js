@@ -18,7 +18,7 @@ class listaTokens{
         var contenido = `<!DOCTYPE html>
         <html>
         <body><center>
-        <h1>REPORTE DE TOKENS</h1>
+        <h1>REPORTE DE TOKENS: TRADUCTOR JS</h1>
         <table border=1>
         <tr>
             <th>No.</th>

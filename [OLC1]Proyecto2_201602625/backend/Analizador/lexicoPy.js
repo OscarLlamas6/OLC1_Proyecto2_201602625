@@ -1,6 +1,6 @@
 const Token = require('../AST/tokenPy');
 const Error = require('../AST/error');
-
+var fs = require('fs');
 
 
 class Lexico{
@@ -555,7 +555,47 @@ class Lexico{
 
     isNumeric(num){
         return !isNaN(num);
-      }
+    }
+
+    ReporteTokens(){
+        var contenido = `<!DOCTYPE html>
+        <html>
+        <body><center>
+        <h1>REPORTE DE TOKENS: TRADUCTOR PYTHON</h1>
+        <table border=1>
+        <tr>
+            <th>No.</th>
+            <th>Fila</th> 
+            <th>Columna</th>
+            <th>Tipo</th>
+            <th>Lexema</th>
+        </tr>`+"\n";
+
+        var concatena = "";
+
+        this.tokens.forEach(element => {
+            concatena += `<tr>
+            <th>${element.getNo()}</th>
+            <th>${element.getFila()}</th> 
+            <th>${element.getColumna()}</th>
+            <th>${element.getTipo()}</th>
+            <th>${element.getLexema()}</th>
+            </tr>` + "\n";
+        });
+
+        contenido += concatena;
+
+        contenido += `</table>
+        </center>
+        </body>
+        </html>`;
+
+        fs.writeFile('./Reportes/TokensPy.html', contenido, (err) => {
+        if (err) throw err;
+        console.log('Reporte tokens generado correctamente.');
+        });
+
+    }
 
 }
 

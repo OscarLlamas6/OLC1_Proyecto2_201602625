@@ -24,6 +24,37 @@ function Ejecutar(){
 
     var contenido = editor.getValue();
     
+    if (contenido == ""){
+
+        consolaJS.setValue("No hay entrada para analizar.");
+        consolaJS.refresh();
+        consolaPython.setValue("No hay entrada para analizar.");
+        consolaPython.refresh();
+
+
+    } else {
+
+        var data = {
+            "texto" : contenido 
+        };
+    
+        fetch("http://localhost:3000/Traducir/",{
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers:{
+                "Content-Type" : "application/json"  }
+            }).then(res => res.json())
+            .catch(error => console.log(error))
+            .then(response => resultado(response));
+
+    }
+
+} 
+
+function Ejecutar2(){
+
+    var contenido = editor2.getValue();
+    
     var data = {
         "texto" : contenido 
     };
@@ -38,8 +69,47 @@ function Ejecutar(){
         }).then(res => res.json())
         .catch(error => console.log(error))
         .then(response => resultado(response));
-    } 
+}     
 
+function Ejecutar3(){
+
+    var contenido = editor3.getValue();
+    
+    var data = {
+        "texto" : contenido 
+    };
+
+    //console.log("hola");
+
+    fetch("http://localhost:3000/Traducir/",{
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers:{
+            "Content-Type" : "application/json"  }
+        }).then(res => res.json())
+        .catch(error => console.log(error))
+        .then(response => resultado(response));
+} 
+
+function Ejecutar4(){
+
+    var contenido = editor4.getValue();
+    
+    var data = {
+        "texto" : contenido 
+    };
+
+    //console.log("hola");
+
+    fetch("http://localhost:3000/Traducir/",{
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers:{
+            "Content-Type" : "application/json"  }
+        }).then(res => res.json())
+        .catch(error => console.log(error))
+        .then(response => resultado(response));
+} 
 
 function resultado(response){
 
@@ -50,8 +120,6 @@ function resultado(response){
 
 }
 
-
-
 function TraduccionJS(){
 
     puerto = 3000;
@@ -59,7 +127,6 @@ function TraduccionJS(){
     window.open(url);
 
 }
-
 
 function TraduccionPy(){
 

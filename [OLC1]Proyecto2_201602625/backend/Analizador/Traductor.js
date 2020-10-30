@@ -84,7 +84,7 @@ performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* actio
 var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
- this.$ = $$[$0-1] ; Salida.crearArchivo(this.$); return this.$; 
+ this.$ = $$[$0-1] ; this.$ = this.$.replace("! ", "!"); Salida.crearArchivo(this.$); return this.$; 
 break;
 case 2: case 18: case 65: case 77: case 114:
  this.$ = $$[$0-1] + $$[$0]; 
@@ -162,7 +162,7 @@ case 71:
  this.$ = $$[$01]; 
 break;
 case 72:
- this.$ = " " + $$[$0-1]; 
+ this.$ = " " + $$[$0-1] + $$[$0]; 
 break;
 case 73: case 74: case 76: case 99:
  this.$ = " " + $$[$0]; 

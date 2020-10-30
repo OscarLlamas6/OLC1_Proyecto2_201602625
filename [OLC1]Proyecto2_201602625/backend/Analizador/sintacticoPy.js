@@ -1,5 +1,6 @@
 const Token = require('../AST/tokenPy');
 const Error = require('../AST/error');
+var fs = require('fs');
 
 class Sintactico{
     constructor(tokens, errores, cErrores){
@@ -609,6 +610,7 @@ class Sintactico{
         } else if (this.TokenCorrecto(this.tokenAux,"tk_int") || this.TokenCorrecto(this.tokenAux,"tk_double") || this.TokenCorrecto(this.tokenAux,"tk_string") || this.TokenCorrecto(this.tokenAux,"tk_boolean") || this.TokenCorrecto(this.tokenAux,"tk_char")){
 
                 this.traduccion += this.Tabulacion(this.tab);
+                this.traduccion += "var ";
 
                 this.tokenAux = this.SiguienteToken();
                 this.Variable();
@@ -898,6 +900,7 @@ class Sintactico{
         } else if (this.TokenCorrecto(this.tokenAux,"tk_int") || this.TokenCorrecto(this.tokenAux,"tk_double") || this.TokenCorrecto(this.tokenAux,"tk_string") || this.TokenCorrecto(this.tokenAux,"tk_boolean") || this.TokenCorrecto(this.tokenAux,"tk_char")){
 
             this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += "var ";
 
             this.tokenAux = this.SiguienteToken();
             this.Variable();
@@ -954,6 +957,7 @@ class Sintactico{
 
         if (this.TokenCorrecto(this.tokenAux,"tk_int") || this.TokenCorrecto(this.tokenAux,"tk_double") || this.TokenCorrecto(this.tokenAux,"tk_string") || this.TokenCorrecto(this.tokenAux,"tk_boolean") || this.TokenCorrecto(this.tokenAux,"tk_char")){
 
+            this.traduccion += "var ";
             this.tokenAux = this.SiguienteToken();
             this.Variable();
  
@@ -1370,6 +1374,7 @@ class Sintactico{
         } else if (this.TokenCorrecto(this.tokenAux,"tk_int") || this.TokenCorrecto(this.tokenAux,"tk_double") || this.TokenCorrecto(this.tokenAux,"tk_string") || this.TokenCorrecto(this.tokenAux,"tk_boolean") || this.TokenCorrecto(this.tokenAux,"tk_char")){
 
             this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += "var ";
 
             this.tokenAux = this.SiguienteToken();
             this.Variable();
@@ -1559,7 +1564,7 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_not")){
 
-            this.traduccion += " !";
+            this.traduccion += " not";
 
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
@@ -1594,6 +1599,7 @@ class Sintactico{
 
         if (this.TokenCorrecto(this.tokenAux,"tk_int") || this.TokenCorrecto(this.tokenAux,"tk_double") || this.TokenCorrecto(this.tokenAux,"tk_string") || this.TokenCorrecto(this.tokenAux,"tk_boolean") || this.TokenCorrecto(this.tokenAux,"tk_char")){
 
+            this.traduccion += "var ";
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_id")){
 
@@ -1616,6 +1622,7 @@ class Sintactico{
 
         if (this.TokenCorrecto(this.tokenAux,"tk_int") || this.TokenCorrecto(this.tokenAux,"tk_double") || this.TokenCorrecto(this.tokenAux,"tk_string") || this.TokenCorrecto(this.tokenAux,"tk_boolean") || this.TokenCorrecto(this.tokenAux,"tk_char")){
 
+            this.traduccion += "var ";
             this.tokenAux = this.SiguienteToken();
             if (this.TokenCorrecto(this.tokenAux,"tk_id")){
 
@@ -1754,7 +1761,7 @@ class Sintactico{
 
         } else if (this.TokenCorrecto(this.tokenAux,"tk_not")){
 
-            this.traduccion += " !";
+            this.traduccion += " not";
 
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
@@ -1873,7 +1880,7 @@ class Sintactico{
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_and")){
 
-            this.traduccion += " &&";
+            this.traduccion += " and";
 
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
@@ -1881,7 +1888,7 @@ class Sintactico{
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_or")){
 
-            this.traduccion += " ||";
+            this.traduccion += " or";
 
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
@@ -1889,7 +1896,7 @@ class Sintactico{
                   
         } else if (this.TokenCorrecto(this.tokenAux,"tk_xor")){
 
-            this.traduccion += " ^";
+            this.traduccion += " xor";
 
             this.tokenAux = this.SiguienteToken();
             this.Expresion();
@@ -2061,6 +2068,46 @@ class Sintactico{
                 concatena = "No se encontraron errores lexicos ni sintacticos.";
             }        
         return concatena;
+    }
+
+    ReporteErrores(){
+        var contenido = `<!DOCTYPE html>
+        <html>
+        <body><center>
+        <h1>REPORTE DE ERRORES: TRADUCTOR PYTHON</h1>
+        <table border=1>
+        <tr>
+            <th>No.</th>
+            <th>Fila</th> 
+            <th>Columna</th>
+            <th>Tipo</th>
+            <th>Descripcion</th>
+        </tr>`+"\n";
+
+        var concatena = "";
+
+        this.errores.forEach(element => {
+            concatena += `<tr>
+            <th>${element.getNo()}</th>
+            <th>${element.getFila()}</th> 
+            <th>${element.getColumna()}</th>
+            <th>${element.getTipo()}</th>
+            <th>${element.getDescripcion()}</th>
+            </tr>` + "\n";
+        });
+
+        contenido += concatena;
+
+        contenido += `</table>
+        </center>
+        </body>
+        </html>`;
+
+        fs.writeFile('./Reportes/ErroresPy.html', contenido, (err) => {
+        if (err) throw err;
+        console.log('Reporte errores generado correctamente.');
+        });
+
     }
 
 }
