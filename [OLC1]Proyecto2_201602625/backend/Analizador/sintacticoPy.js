@@ -1576,7 +1576,7 @@ class Sintactico{
             this.traduccion += " (";
 
             this.tokenAux = this.SiguienteToken();
-            this.Expresion
+            this.Expresion();
             this.EPrima();
             if (this.TokenCorrecto(this.tokenAux,"tk_pc")){
 
@@ -1773,7 +1773,7 @@ class Sintactico{
             this.traduccion += " (";
 
             this.tokenAux = this.SiguienteToken();
-            this.Expresion
+            this.Expresion();
             this.EPrima();
             if (this.TokenCorrecto(this.tokenAux,"tk_pc")){
 

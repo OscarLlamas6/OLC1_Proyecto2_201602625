@@ -491,7 +491,11 @@ DINSTRUCCION: tk_if tk_pa EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc ELSEIF  {   
               $$.agregarHijo($1);
             }
 
-    | error FINERROR {  $$ = new Nodo("DINSTRUCCION","");
+    | error tk_pyc {  $$ = new Nodo("DINSTRUCCION","");
+                        $$.agregarHijo(new Nodo("Error",""));                    
+                        miListaE.agregarError(new Error(NumeroE, yylineno, 1, "Sintactico", yytext)); NumeroE++; }
+                        
+    | error {  $$ = new Nodo("DINSTRUCCION","");
                         $$.agregarHijo(new Nodo("Error",""));                    
                         miListaE.agregarError(new Error(NumeroE, yylineno, 1, "Sintactico", yytext)); NumeroE++; };
 
@@ -574,7 +578,7 @@ EXPRESION: tk_id ID_LLAMADA {   $$ = new Nodo("EXPRESION","");
                                $$.agregarHijo(new Nodo($3,"simbolo"));
                             } 
 
-    | error FINERROR {  $$ = new Nodo("EXPRESION","");
+    | error {  $$ = new Nodo("EXPRESION","");
                         $$.agregarHijo(new Nodo("Error",""));                    
                         miListaE.agregarError(new Error(NumeroE, yylineno, 1, "Sintactico", yytext)); NumeroE++; };
 

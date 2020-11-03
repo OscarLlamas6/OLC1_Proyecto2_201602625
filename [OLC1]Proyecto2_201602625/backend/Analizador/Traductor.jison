@@ -226,7 +226,9 @@ DINSTRUCCION: tk_if tk_pa EXPRESION tk_pc tk_la INSTRUCCIONES tk_lc ELSEIF  { $$
 
     | PRINT { $$ = $1; }
 
-    | error FINERROR { $$ = ""; };
+    | error tk_pyc { $$ = ""; }
+    
+    | error  { $$ = ""; };
 
 
 PARAMETROS: PARAMETRO OTRO_PARAMETRO { $$ = $1 + $2; }
@@ -265,7 +267,7 @@ EXPRESION: tk_id ID_LLAMADA { $$ = " " + $1 + $2; }
 
     | tk_pa EXPRESION tk_pc { $$ = " ( " + $2 + ")"; } 
 
-    | error FINERROR { $$ = "";  };
+    | error { $$ = "";  };
 
 
 ID_LLAMADA: tk_pa VALORES tk_pc { $$ = "( " + $2 + ")"; } 

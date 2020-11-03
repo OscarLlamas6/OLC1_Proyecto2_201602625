@@ -1,5 +1,12 @@
 # [OLC1] Proyecto 2: "Translator in Docker"
 
+## Información General
+- SO: Linux-Ubuntu 20.04
+- Lenguaje: Javascript/Golang
+- Creado por Oscar Alfredo Llamas Lemus
+- Octubre 2020
+
+
 **Comando para servidor Golang _frontend/web.go_**
 
     > go run web.go
