@@ -1,4 +1,4 @@
-# [OLC1] Proyecto 2: "Translator in Docker"
+# [OLC1] Proyecto 2: "Translator in Docker" - Manual técnico
 
 ## Información General
 - SO: Linux-Ubuntu 20.04
