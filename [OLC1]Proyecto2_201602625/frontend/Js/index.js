@@ -62,8 +62,6 @@ function Ejecutar(){
             .catch(error => {console.log(error);
                             Pyresultado(errorJson);})
             .then(response => Pyresultado(response));
-
-
     }
 
 } 
@@ -82,6 +80,11 @@ function Ejecutar2(){
 
     } else {
 
+        var errorJson = {
+            "jsconsole" : "El servidor no esta disponible",
+            "pyconsole" : "El servidor no esta disponible",
+        };
+
         var data = {
             "texto" : contenido 
         };
@@ -92,9 +95,19 @@ function Ejecutar2(){
             headers:{
                 "Content-Type" : "application/json"  }
             }).then(res => res.json())
-            .catch(error => console.log(error))
-            .then(response => resultado(response));
+            .catch(error => {console.log(error);
+                            JSresultado(errorJson);})
+            .then(response => JSresultado(response));
 
+        fetch("http://localhost:3001/Traducir/",{
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers:{
+                "Content-Type" : "application/json"  }
+            }).then(res => res.json())
+            .catch(error => {console.log(error);
+                            Pyresultado(errorJson);})
+            .then(response => Pyresultado(response));
     }
 }     
 
@@ -112,6 +125,11 @@ function Ejecutar3(){
 
     } else {
 
+        var errorJson = {
+            "jsconsole" : "El servidor no esta disponible",
+            "pyconsole" : "El servidor no esta disponible",
+        };
+
         var data = {
             "texto" : contenido 
         };
@@ -122,9 +140,19 @@ function Ejecutar3(){
             headers:{
                 "Content-Type" : "application/json"  }
             }).then(res => res.json())
-            .catch(error => console.log(error))
-            .then(response => resultado(response));
+            .catch(error => {console.log(error);
+                            JSresultado(errorJson);})
+            .then(response => JSresultado(response));
 
+        fetch("http://localhost:3001/Traducir/",{
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers:{
+                "Content-Type" : "application/json"  }
+            }).then(res => res.json())
+            .catch(error => {console.log(error);
+                            Pyresultado(errorJson);})
+            .then(response => Pyresultado(response));
     }
 } 
 
@@ -142,6 +170,11 @@ function Ejecutar4(){
 
     } else {
 
+        var errorJson = {
+            "jsconsole" : "El servidor no esta disponible",
+            "pyconsole" : "El servidor no esta disponible",
+        };
+
         var data = {
             "texto" : contenido 
         };
@@ -152,40 +185,41 @@ function Ejecutar4(){
             headers:{
                 "Content-Type" : "application/json"  }
             }).then(res => res.json())
-            .catch(error => console.log(error))
-            .then(response => resultado(response));
+            .catch(error => {console.log(error);
+                            JSresultado(errorJson);})
+            .then(response => JSresultado(response));
 
+        fetch("http://localhost:3001/Traducir/",{
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers:{
+                "Content-Type" : "application/json"  }
+            }).then(res => res.json())
+            .catch(error => {console.log(error);
+                            Pyresultado(errorJson);})
+            .then(response => Pyresultado(response));
     }
 } 
 
 function JSresultado(response){
-
     consolaJS.setValue(response.jsconsole);
     consolaJS.refresh();
-
-
 }
 
 function Pyresultado(response){
-
     consolaPython.setValue(response.pyconsole);
     consolaPython.refresh();
-
 }
 
 
 function TraduccionJS(){
-
     puerto = 3000;
     var url='http://localhost:'+ puerto +'/descargarJS/';
     window.open(url);
-
 }
 
 function TraduccionPy(){
-
     puerto = 3001;
     var url='http://localhost:'+ puerto +'/descargarPy/';
     window.open(url);
-
 }
