@@ -20,3 +20,4 @@ RUN npm install jison -g
 RUN npm install typescript-require
 EXPOSE 8000
 EXPOSE 3000
+EXPOSE 3001

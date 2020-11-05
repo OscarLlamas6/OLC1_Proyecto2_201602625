@@ -11,9 +11,13 @@
 
     > go run web.go
 
-**Comando para levantar servidor backend Nodejs _backend/app.js_**
+**Comando para levantar el servidor del traductor Js  _backend/app.js_**
 
     > node app.js
+
+**Comando para levantar el servidor del traductor Python  _backend/app.js_**
+
+    > node appPython.js
 
 # Comandos Docker usados
 
@@ -82,8 +86,7 @@
 
 ### Ejemplo (comando usado para este proyecto):
 
-    > sudo docker run -v /home/oscar-pc/Proyecto2/:/Proyecto2/ -p 7000:8000 -p 3000:3000 -it --name proyecto2 oscarllamas6/ubuntu-go-node-proyecto2:v1 /bin/bash
-
+    > sudo docker run -v /home/oscar-pc/Proyecto2/:/Proyecto2/ -p 7000:8000 -p 3000:3000 -p 3001:3001 -it --name proyecto2 oscarllamas6/ubuntu-go-node-proyecto2:v1 /bin/bash
 
 
 > Para terminar, podemos salir del contenedor utilizando el comando exit.

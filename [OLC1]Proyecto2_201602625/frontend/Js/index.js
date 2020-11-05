@@ -34,6 +34,11 @@ function Ejecutar(){
 
     } else {
 
+        var errorJson = {
+            "jsconsole" : "El servidor no esta disponible",
+            "pyconsole" : "El servidor no esta disponible",
+        };
+
         var data = {
             "texto" : contenido 
         };
@@ -44,8 +49,20 @@ function Ejecutar(){
             headers:{
                 "Content-Type" : "application/json"  }
             }).then(res => res.json())
-            .catch(error => console.log(error))
-            .then(response => resultado(response));
+            .catch(error => {console.log(error);
+                            JSresultado(errorJson);})
+            .then(response => JSresultado(response));
+
+        fetch("http://localhost:3001/Traducir/",{
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers:{
+                "Content-Type" : "application/json"  }
+            }).then(res => res.json())
+            .catch(error => {console.log(error);
+                            Pyresultado(errorJson);})
+            .then(response => Pyresultado(response));
+
 
     }
 
@@ -141,14 +158,21 @@ function Ejecutar4(){
     }
 } 
 
-function resultado(response){
+function JSresultado(response){
 
     consolaJS.setValue(response.jsconsole);
     consolaJS.refresh();
+
+
+}
+
+function Pyresultado(response){
+
     consolaPython.setValue(response.pyconsole);
     consolaPython.refresh();
 
 }
+
 
 function TraduccionJS(){
 
@@ -160,7 +184,7 @@ function TraduccionJS(){
 
 function TraduccionPy(){
 
-    puerto = 3000;
+    puerto = 3001;
     var url='http://localhost:'+ puerto +'/descargarPy/';
     window.open(url);
 
