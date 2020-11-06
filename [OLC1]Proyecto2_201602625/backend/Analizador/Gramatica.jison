@@ -21,6 +21,7 @@
 %options case-sensitive
 %%
 
+[0-9]+("."[0-9]+)?\b             %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "numerico", yytext)); Numero++; return 'tk_numero';  %}
 [/][/].*                            %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "comentario", yytext)); Numero++;  return 'tk_commentu'; %}
 [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/] %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "comentario", yytext)); Numero++;  return 'tk_commentm'; %}                    
 "args"                  %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "palabra reservada", yytext)); Numero++; return 'tk_args'; %}
@@ -77,8 +78,7 @@
 
 
 \"[^\"]*\"              %{ yytext = yytext.substr(1, yyleng-2); miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "cadena", yytext)); Numero++; return 'tk_cadena'; %}
-[0-9]+"."[0-9]+\b             %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "numerico", yytext)); Numero++; return 'tk_decimal';  %}
-[0-9]+\b                      %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "numerico", yytext)); Numero++;  return 'tk_entero';  %}
+\'[^\']*\'             %{ yytext = yytext.substr(1, yyleng-2); miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "cadena", yytext)); Numero++; return 'tk_cadena'; %}
 ([a-zA-Z_])[a-zA-Z0-9_]*     %{ miLista.agregarToken(new Token(Numero, yylloc.first_line, yylloc.first_column + 1, "identificador", yytext)); Numero++;  return 'tk_id'; %}
 [ \t\r\n\f] %{  /*Los Ignoramos*/   %}
 <<EOF>>     %{  return 'EOF';   %}
@@ -337,6 +337,10 @@ DINTERFAZ: VISIBILIDAD DMETODONTERFAZ { $$ = new Nodo("DINTERFAZ","");
                     $$.agregarHijo($1);
                     $$.agregarHijo(new Nodo($2,"simbolo"));
                   }
+
+    | COMENTARIO {    $$ = new Nodo("DINTERFAZ","");
+                      $$.agregarHijo($1);
+                            }
     
     | error FINERROR {  $$ = new Nodo("DINTERFAZ","");
                         $$.agregarHijo(new Nodo("Error",""));                    
@@ -527,13 +531,9 @@ OTRO_PARAMETRO: tk_coma PARAMETRO OTRO_PARAMETRO { $$ = new Nodo("OTRO_PARAMETRO
                   } ;
 
 
-NUMERO: tk_entero { $$ = new Nodo("NUMERO","");
+NUMERO: tk_numero { $$ = new Nodo("NUMERO","");
                     $$.agregarHijo(new Nodo($1,"entero"));
-                 } 
-
-    | tk_decimal {  $$ = new Nodo("NUMERO","");
-                    $$.agregarHijo(new Nodo($1,"decimal"));
-                 } ;
+                 };
 
 
 EXPRESION: tk_id ID_LLAMADA {   $$ = new Nodo("EXPRESION","");

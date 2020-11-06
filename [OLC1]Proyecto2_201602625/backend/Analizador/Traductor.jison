@@ -10,6 +10,7 @@
 %options case-sensitive
 %%
 
+[0-9]+("."[0-9]+)?\b              %{ return 'tk_numero';  %}
 [/][/].*                            %{ return 'tk_commentu'; %}
 [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/] %{ return 'tk_commentm'; %}                 
 "args"                  %{ return 'tk_args'; %}
@@ -66,8 +67,7 @@
 
 
 \"[^\"]*\"              %{ return 'tk_cadena'; %}
-[0-9]+"."[0-9]+\b             %{ return 'tk_decimal';  %}
-[0-9]+\b                      %{ return 'tk_entero';  %}
+\'[^\']*\'              %{ return 'tk_cadena'; %}
 ([a-zA-Z])[a-zA-Z0-9_]*     %{ return 'tk_id'; %}
 [ \t\r\n\f] %{  /*Los Ignoramos*/   %}
 <<EOF>>     %{  return 'EOF';   %}
@@ -84,7 +84,7 @@
 %start INICIO
 %% 
 
-INICIO: LISTA_DECLARACIONES EOF { $$ = $1 ; $$ = $$.replace("! ", "!"); Salida.crearArchivo($$); return $$; };
+INICIO: LISTA_DECLARACIONES EOF { $$ = $1 ; $$ = $$.replace("! ", "!"); $$ = $$.replace("- ", "-"); Salida.crearArchivo($$); return $$; };
 
 LISTA_DECLARACIONES: DPROGRAMA LISTA_DECLARACIONES  { $$ = $1 + $2; }
 
@@ -151,7 +151,7 @@ CLASE_INTERFAZ_METODO_FUNCION: tk_class tk_id tk_la LISTA_DECLARACIONES tk_lc { 
 
     | tk_interface tk_id tk_la LINTERFAZ tk_lc  { $$ = ""; } 
 
-    | tk_static tk_void tk_main tk_pa tk_string tk_ca tk_cc tk_args tk_pc tk_la INSTRUCCIONES tk_lc { $$ = "main(){\n   " + $11 + "}\n"; }
+    | tk_static tk_void tk_main tk_pa tk_string tk_ca tk_cc tk_args tk_pc tk_la INSTRUCCIONES tk_lc { $$ = "function main(){\n   " + $11 + "}\n"; }
 
     | TIPO_METODO_FUNCION tk_id tk_pa PARAMETROS tk_pc tk_la INSTRUCCIONES tk_lc { $$ = "function " + $2 + "(" + $4 + "){\n " + $7 + "}\n"; } 
 
@@ -168,6 +168,8 @@ DINTERFAZ: VISIBILIDAD DMETODONTERFAZ { $$ = ""; }
     | DECLARACION tk_pyc { $$ = ""; }
 
     | ASIGNACION tk_pyc { $$ = ""; }
+
+    | COMENTARIO { $$ = $1; }
     
     | error FINERROR { $$ = "";  };
 
@@ -244,9 +246,7 @@ OTRO_PARAMETRO: tk_coma PARAMETRO OTRO_PARAMETRO { $$ = ", " + $2 + $3; }
     |  /*EPSILON*/ { $$ = ""; } ;
 
 
-NUMERO: tk_entero { $$ = $1; } 
-
-    | tk_decimal { $$ = $2; } ;
+NUMERO: tk_numero { $$ = $1; } ;
 
 
 EXPRESION: tk_id ID_LLAMADA { $$ = " " + $1 + $2; } 

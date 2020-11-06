@@ -15,6 +15,10 @@
 
     > node app.js
 
+**Comando para levantar el servidor del traductor Python  _backend/appPython.js_**
+
+    > node appPython.js
+
 ## Utilización de la interfaz
 
     > Esta es la pantalla principal del traductor, y básicamente toda la interfaz a utilizarse.

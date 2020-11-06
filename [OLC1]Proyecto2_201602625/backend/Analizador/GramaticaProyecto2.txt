@@ -1,0 +1,214 @@
+TOKENS:
+
+tk_public //palabra reservada 'public'
+tk_class //palabra reservada 'class'
+tk_id //identificador
+tk_la //simbolo llave abierta
+tk_lc //simbolo llave cerrada
+tk_interface //palabra reservada 'interface'
+tk_pa //simbolo parentesis abierto
+tk_pc //simbolo parentesis cerrado
+tk_pyc //simbolo punto y coma
+tk_int //palabra reservada 'int'
+tk_char //palabra reservada 'char'
+tk_string //palabra reservada 'String'
+tk_double //palabra reservada 'double'
+tk_coma //simbolo coma
+tk_void //palabra reservada 'void'
+tk_for //palabra reservada 'for'
+tk_while //palabra reservada 'while'
+tk_do //palabra reservada 'do'
+tk_if //palabra reservada 'if'
+tk_else //palabra reservada 'else'
+tk_break //palabra reservada 'break'
+tk_continue //palabra reservada 'continue'
+tk_return //palabra reservada 'return'
+tk_and //simbolo &&
+tk_or //simbolo ||
+tk_not //simbolo !
+tk_xor //simbolo ^
+tk_mas //simbolo +
+tk_menos //simbolo - 
+tk_mul //simbolo *
+tk_div //simbolo /
+tk_add //simbolo ++
+tk_sus //simbolo --
+tk_boolean //palabra reservada 'boolean'
+tk_true //palabra reservada 'true'
+tk_false //palabra reservada 'false'
+tk_commentu //comentario unilinea
+tk_commentm //comentario multilinea
+tk_igual //simbolo =
+tk_cadena //cadena
+tk_static //palabra reservada 'static'
+tk_private //palabra reservada 'private'
+tk_main //palabra reservada main
+tk_punto //simbolo punto .
+tk_print //palabra reservada System.out.print
+tk_println // System.out.println
+tk_mayorigual //simbolo mayor igual >=
+tk_menorigual //simbolo menor igual <=
+tk_igualigual //simbolo igual igual ==
+tk_noigual //simbolo no igual !=
+tk_mayor //simbolo mayor que >
+tk_menor //simbolo menor que <
+tk_entero //numero entero
+tk_decimal //numero decimal
+tk_ca //corchete abierto
+tk_cc //corchete cerrado
+tk_args// palabra reservada args
+
+
+<INICIO>::=  <LISTA_DECLARACIONES> EOF
+
+
+<LISTA_DECLARACIONES>::= <DPROGRAMA> <LISTA_DECLARACIONES>
+                        | E
+
+
+<DPROGRAMA>::= <VISIBILIDAD> <CLASE_INTERFAZ_METODO_FUNCION>
+                |   tk_if tk_pa <EXPRESION> tk_pc tk_la <INSTRUCCIONES> tk_lc <ELSEIF>
+                |   tk_for tk_pa <DAFOR> tk_pyc <EXPRESION> tk_pyc <EXPRESION> tk_pc tk_la <INSTRUCCIONES> tk_lc
+                |   tk_while tk_pa <EXPRESION> tk_pc tk_la <INSTRUCCIONES> tk_lc
+                |   tk_do tk_la <INSTRUCCIONES> tk_lc tk_while tk_pa <EXPRESION> tk_pc tk_pyc
+                |   <DECLARACION>
+                |   tk_id <ASIGNACION_LLAMADA> tk_pyc
+                |   <COMENTARIO>
+                |   <PRINT>
+
+
+<DAFOR>::= <DECLARACION>
+        | <ASIGNACION> <OTRA_ASIGNACION>
+
+<ASIGNACION>::= tk_id tk_igual <EXPRESION> 
+
+<OTRA_ASIGNACION>::= tk_coma <ASIGNACION> <OTRA_ASIGNACION>
+                    |E
+
+<ELSEIF>::= tk_else <ELSE>
+        |   E
+
+<ELSE>::=   tk_if tk_pa <EXPRESION> tk_pc tk_la <INSTRUCCIONES> tk_lc <ELSEIF>
+
+    | tk_la <INSTRUCCIONES> tk_lc
+
+
+<VISIBILIDAD>::= tk_public
+                |tk_private
+
+<CLASE_INTERFAZ_METODO_FUNCION>::= tk_class tk_id tk_la <LISTA_DECLARACIONES> tk_lc
+                                |  tk_interface tk_id tk_la <LINTERFAZ> tk_lc
+                                |  tk_static tk_void tk_main tk_pa tk_string tk_ca tk_cc tk_args tk_pc tk_la <INSTRUCCIONES> tk_lc
+                                |  <TIPO_METODO_FUNCION>  tk_id tk_pa <PARAMETROS> tk_pc tk_la <INSTRUCCIONES> tk_lc 
+
+
+
+<LINTERFAZ>::= <DINTERFAZ> <LINTERFAZ>
+                                | E
+
+<DINTERFAZ>::= <VISIBILIDAD> <DMETODOINTERFAZ>
+                |<DECLARACION>
+                |<ASIGNACION>
+
+               
+<DMETODOINTERFAZ>::= <TIPO_METODO_FUNCION> tk_id    tk_pa   <PARAMETROS> tk_pc tk_pyc
+
+
+<TIPO_METODO_FUNCION>::= tk_void
+                    |   tk_int
+                    |   tk_double  
+                    |   tk_string  
+                    |   tk_boolean 
+                    |   tk_char  
+
+<TIPO_DATO>::=  tk_int
+            |   tk_double  
+            |   tk_string  
+            |   tk_boolean 
+            |   tk_char 
+
+<INSTRUCCIONES>:: <DINSTRUCCION> <INSTRUCCIONES>
+                                        | E
+
+<DINSTRUCCION>::=   tk_if tk_pa <EXPRESION> tk_pc tk_la <INSTRUCCIONES> tk_lc <ELSEIF> 
+                |   tk_for tk_pa <DAFOR> tk_pyc <EXPRESION> tk_pyc <EXPRESION> tk_pc tk_la <INSTRUCCIONES> tk_lc
+                |   tk_while tk_pa <EXPRESION> tk_pc tk_la <INSTRUCCIONES> tk_lc
+                |   tk_do tk_la <INSTRUCCIONES> tk_lc tk_while tk_pa <EXPRESION> tk_pc tk_pyc
+                |   tk_break tk_pyc
+                |   tk_continue tk_pyc
+                |   tk_return <RETURN> tk_pyc
+                |   <DECLARACION>
+                |   tk_id <ASIGNACION_LLAMADA> tk_pyc
+                |   <COMENTARIO>
+                |   <PRINT>
+
+
+<PARAMETROS>::= <PARAMETRO> <OTRO_PARAMETRO>
+            | E
+
+<PARAMETRO>::=  <TIPO_DATO> tk_id 
+
+<OTRO_PARAMETRO>::= tk_coma <PARAMETRO> <OTRO_PARAMETRO>
+                    | E
+
+<NUMERO>::= tk_entero
+           |tk_decimal
+
+<ID_LLAMADA>::= tk_pa <VALORES> tk_pc 
+                |  E
+
+<EXPRESION>::= tk_id <ID_LLAMADA>
+            | tk_cadena
+            | tk_true
+            | tk_false
+            | <NUMERO>
+            | <EXPRESION> <OPERADOR>
+            | tk_menos <EXPRESION>
+            | tk_pa <EXPRESION> tk_pc
+
+<OPERADOR>::= tk_mayor <EXPRESION>
+            | tk_menor <EXPRESION>
+            | tk_mayorigual <EXPRESION>
+            | tk_menorigual <EXPRESION>
+            | tk_igualigual <EXPRESION>
+            | tk_noigual <EXPRESION>
+            | tk_mas <EXPRESION>
+            | tk_menos <EXPRESION>
+            | tk_mul <EXPRESION>
+            | tk_div <EXPRESION>
+            | tk_and <EXPRESION>
+            | tk_or <EXPRESION>
+            | tk_not <EXPRESION>
+            | tk_xor <EXPRESION>
+            | tk_add
+            | tk_sus
+
+<RETURN>::= <EXPRESION>
+          | E  
+
+<COMENTARIO>::=  tk_commentu
+                |tk_commentm
+
+<DECLARACION>::= <TIPO_DATO> <VARIABLE> <OTRA_VARIABLE> tk_pyc
+
+<VARIABLE>::= tk_id <ASIGNACION_VARIABLE>
+
+<ASIGNACION_VARIABLE>::= tk_igual <EXPRESION>
+                        | E
+<OTRA_VARIABLE>::= tk_coma <VARIABLE> <OTRA_VARIABLE>
+                  |E
+
+<ASIGNACION_LLAMADA>::=  tk_igual <EXPRESION> 
+                    |   tk_pa <VALORES> tk_pc
+                    |   tk_punto tk_id tk_pa <VALORES> tk_pc
+                    |   tk_add
+                    |   tk_sus
+
+<VALORES>::= <EXPRESION> <OTRO_VALOR>
+        |   E
+
+<OTRO_VALOR>::=  tk_coma <EXPRESION> <OTRO_VALOR>
+            |    E
+
+<PRINT>::=  tk_println tk_pa <EXPRESION> tk_pc tk_pyc
+        |   tk_print tk_pa <EXPRESION> tk_pc tk_pyc 

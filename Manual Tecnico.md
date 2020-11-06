@@ -15,7 +15,7 @@
 
     > node app.js
 
-**Comando para levantar el servidor del traductor Python  _backend/app.js_**
+**Comando para levantar el servidor del traductor Python  _backend/appPython.js_**
 
     > node appPython.js
 
