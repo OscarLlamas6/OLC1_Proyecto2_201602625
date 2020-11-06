@@ -949,7 +949,95 @@ class Sintactico{
                 this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba ="));
             } 
 
-        }
+        } else if (this.TokenCorrecto(this.tokenAux,"tk_commentu")){
+
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += "#" + this.tokenAux.getLexema();
+
+            this.tokenAux = this.SiguienteToken();      
+            this.LInterfaz(); 
+
+        } else if (this.TokenCorrecto(this.tokenAux,"tk_commentm")){
+
+            this.traduccion += this.Tabulacion(this.tab);
+            this.traduccion += `'''` + this.tokenAux.getLexema() + `'''`+"\n";
+
+            this.tokenAux = this.SiguienteToken();      
+            this.LInterfaz(); 
+
+        } else if (this.TokenCorrecto(this.tokenAux,"tk_system")){ 
+
+            this.tokenAux = this.SiguienteToken(); 
+            if (this.TokenCorrecto(this.tokenAux,"tk_punto")){
+                
+                this.tokenAux = this.SiguienteToken(); 
+                if (this.TokenCorrecto(this.tokenAux,"tk_out")){
+
+                    this.tokenAux = this.SiguienteToken(); 
+                    if (this.TokenCorrecto(this.tokenAux,"tk_punto")){
+    
+                        this.tokenAux = this.SiguienteToken(); 
+                        this.Print();
+                        if (this.TokenCorrecto(this.tokenAux,"tk_pa")){
+
+                            this.traduccion += this.Tabulacion(this.tab);
+                            this.traduccion += "print("
+        
+                            this.tokenAux = this.SiguienteToken(); 
+                            this.Expresion();
+                            if (this.TokenCorrecto(this.tokenAux,"tk_pc")){
+
+                                if (this.salto == 1){
+                                    this.traduccion += `, end="")`;
+                                } else if (this.salto == 2){
+                                    this.traduccion += `)`;
+                                }
+            
+                                this.tokenAux = this.SiguienteToken(); 
+                                if (this.TokenCorrecto(this.tokenAux,"tk_pyc")){
+
+                                    this.traduccion += "\n";
+                
+                                    this.tokenAux = this.SiguienteToken();      
+                                    this.LInterfaz(); 
+                                
+                                } else {
+                                    this.cErrores++;
+                            this.errorSyntax = true;            
+                                    this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba ;"));
+                                } 
+                            
+                            } else {
+                                this.cErrores++;
+                            this.errorSyntax = true;            
+                                this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba )"));
+                            } 
+                        
+                        } else {
+                            this.cErrores++;
+                            this.errorSyntax = true;            
+                            this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba ("));
+                        } 
+                    
+                    } else {
+                        this.cErrores++;
+                            this.errorSyntax = true;            
+                        this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba la palabra ."));
+                    } 
+                
+                } else {
+                    this.cErrores++;
+                            this.errorSyntax = true;            
+                    this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba la palabra reservada out"));
+                } 
+
+            } else {
+                this.cErrores++;
+                            this.errorSyntax = true;            
+                this.errores.push(new Error(this.cErrores,this.tokenAux.getFila(),this.tokenAux.getColumna(),"Sintactico","Se encontró "+this.tokenAux.getLexema()+" y se esperaba ."));
+            } 
+
+        } 
 
     }
 

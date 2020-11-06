@@ -1,75 +1,57 @@
 function Traducir(){
 
-    var texto = editor.getValue();
-    console.log(texto);
+    var contenido = editor.getValue();
 
-    consolaJS.setValue("");
-    consolaJS.refresh();
+    if (contenido == ""){
 
-    puerto = 3000;
+        consolaJS.setValue("No hay entrada para analizar.");
+        consolaJS.refresh();
+        consolaPython.setValue("No hay entrada para analizar.");
+        consolaPython.refresh();
 
-    var url='http://localhost:'+ puerto +'/Traducir/';
 
-    $.post(url,{text:texto},function(data,status){
-        if(status.toString()=="success"){
-            consolaJS.setValue(data);
-            consolaJS.refresh();
-        }else{
-           
-        }
-    });
+    } else {
+
+        var errorJson = {
+            "jsconsole" : "El servidor no esta disponible",
+            "pyconsole" : "El servidor no esta disponible",
+        };
+
+        var data = {
+            "Texto" : contenido 
+        };
+
+    
+        fetch('../getTraduccionJs', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers:{
+              'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+        .catch(error => {console.log(error);
+                        JSresultado(errorJson);})
+        .then(response => JSresultado(response));
+       
+        fetch('../getTraduccionPy', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers:{
+              'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+        .catch(error => {console.log(error);
+                        Pyresultado(errorJson);})
+        .then(response => Pyresultado(response));
+    
+    }
+          
 }
 
-function Ejecutar(){
-
-    var contenido = editor.getValue();
-    
-    if (contenido == ""){
-
-        consolaJS.setValue("No hay entrada para analizar.");
-        consolaJS.refresh();
-        consolaPython.setValue("No hay entrada para analizar.");
-        consolaPython.refresh();
-
-
-    } else {
-
-        var errorJson = {
-            "jsconsole" : "El servidor no esta disponible",
-            "pyconsole" : "El servidor no esta disponible",
-        };
-
-        var data = {
-            "texto" : contenido 
-        };
-    
-        fetch("http://localhost:3000/Traducir/",{
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers:{
-                "Content-Type" : "application/json"  }
-            }).then(res => res.json())
-            .catch(error => {console.log(error);
-                            JSresultado(errorJson);})
-            .then(response => JSresultado(response));
-
-        fetch("http://localhost:3001/Traducir/",{
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers:{
-                "Content-Type" : "application/json"  }
-            }).then(res => res.json())
-            .catch(error => {console.log(error);
-                            Pyresultado(errorJson);})
-            .then(response => Pyresultado(response));
-    }
-
-} 
-
-function Ejecutar2(){
+function Traducir2(){
 
     var contenido = editor2.getValue();
-    
+
     if (contenido == ""){
 
         consolaJS.setValue("No hay entrada para analizar.");
@@ -86,35 +68,40 @@ function Ejecutar2(){
         };
 
         var data = {
-            "texto" : contenido 
+            "Texto" : contenido 
         };
+
     
-        fetch("http://localhost:3000/Traducir/",{
+        fetch('../getTraduccionJs', {
             method: 'POST',
             body: JSON.stringify(data),
             headers:{
-                "Content-Type" : "application/json"  }
-            }).then(res => res.json())
-            .catch(error => {console.log(error);
-                            JSresultado(errorJson);})
-            .then(response => JSresultado(response));
-
-        fetch("http://localhost:3001/Traducir/",{
+              'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+        .catch(error => {console.log(error);
+                        JSresultado(errorJson);})
+        .then(response => JSresultado(response));
+       
+        fetch('../getTraduccionPy', {
             method: 'POST',
             body: JSON.stringify(data),
             headers:{
-                "Content-Type" : "application/json"  }
-            }).then(res => res.json())
-            .catch(error => {console.log(error);
-                            Pyresultado(errorJson);})
-            .then(response => Pyresultado(response));
+              'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+        .catch(error => {console.log(error);
+                        Pyresultado(errorJson);})
+        .then(response => Pyresultado(response));
+    
     }
-}     
+          
+}
 
-function Ejecutar3(){
+function Traducir3(){
 
     var contenido = editor3.getValue();
-    
+
     if (contenido == ""){
 
         consolaJS.setValue("No hay entrada para analizar.");
@@ -131,35 +118,40 @@ function Ejecutar3(){
         };
 
         var data = {
-            "texto" : contenido 
+            "Texto" : contenido 
         };
+
     
-        fetch("http://localhost:3000/Traducir/",{
+        fetch('../getTraduccionJs', {
             method: 'POST',
             body: JSON.stringify(data),
             headers:{
-                "Content-Type" : "application/json"  }
-            }).then(res => res.json())
-            .catch(error => {console.log(error);
-                            JSresultado(errorJson);})
-            .then(response => JSresultado(response));
-
-        fetch("http://localhost:3001/Traducir/",{
+              'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+        .catch(error => {console.log(error);
+                        JSresultado(errorJson);})
+        .then(response => JSresultado(response));
+       
+        fetch('../getTraduccionPy', {
             method: 'POST',
             body: JSON.stringify(data),
             headers:{
-                "Content-Type" : "application/json"  }
-            }).then(res => res.json())
-            .catch(error => {console.log(error);
-                            Pyresultado(errorJson);})
-            .then(response => Pyresultado(response));
+              'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+        .catch(error => {console.log(error);
+                        Pyresultado(errorJson);})
+        .then(response => Pyresultado(response));
+    
     }
-} 
+          
+}
 
-function Ejecutar4(){
+function Traducir4(){
 
     var contenido = editor4.getValue();
-    
+
     if (contenido == ""){
 
         consolaJS.setValue("No hay entrada para analizar.");
@@ -176,30 +168,35 @@ function Ejecutar4(){
         };
 
         var data = {
-            "texto" : contenido 
+            "Texto" : contenido 
         };
-    
-        fetch("http://localhost:3000/Traducir/",{
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers:{
-                "Content-Type" : "application/json"  }
-            }).then(res => res.json())
-            .catch(error => {console.log(error);
-                            JSresultado(errorJson);})
-            .then(response => JSresultado(response));
 
-        fetch("http://localhost:3001/Traducir/",{
+    
+        fetch('../getTraduccionJs', {
             method: 'POST',
             body: JSON.stringify(data),
             headers:{
-                "Content-Type" : "application/json"  }
-            }).then(res => res.json())
-            .catch(error => {console.log(error);
-                            Pyresultado(errorJson);})
-            .then(response => Pyresultado(response));
+              'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+        .catch(error => {console.log(error);
+                        JSresultado(errorJson);})
+        .then(response => JSresultado(response));
+       
+        fetch('../getTraduccionPy', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers:{
+              'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+        .catch(error => {console.log(error);
+                        Pyresultado(errorJson);})
+        .then(response => Pyresultado(response));
+    
     }
-} 
+          
+}
 
 function JSresultado(response){
     consolaJS.setValue(response.jsconsole);
