@@ -30,7 +30,7 @@ class Lexico{
             this.anular = false;
             this.repetir = true;
             while (this.repetir){
-               //console.log("Estado "+this.estado+" -> " +c);
+               // console.log(this.lexemaact);
                 this.repetir = false;
                 switch (this.estado){
                     case 0: 
@@ -97,6 +97,9 @@ class Lexico{
                         } else if (c == "\""){
                             this.lexemaact = c;
                             this.estado = 1; //cadenas
+                        } else if (c == "\'"){
+                            this.lexemaact = c;
+                            this.estado = 18; //cadenas
                         } else if (this.isDigit(c)){
                             this.lexemaact = c;
                             this.estado = 2; //numeros
@@ -520,8 +523,9 @@ class Lexico{
                         break;
                     case 17: // estado aceptacion comentarios multi-linea o retorno a esta 16
                         if (c != "/"){
-                            this.lexemaact += "*" + c;
+                            this.lexemaact += "*";
                             this.estado = 16;
+                            this.repetir = true;
                         } else {
                             this.cTokens++;
                             this.tokens.push(new Token(this.cTokens, this.fila, this.columna, "Comentario", this.lexemaact, "tk_commentm"));
@@ -529,6 +533,18 @@ class Lexico{
                             this.estado = 0;
                         }                      
                         break;
+                    case 18: //cadenas con ''
+                    if (c != "\'"){
+                        this.lexemaact+=c;
+                        this.estado = 18;
+                    } else {
+                        this.lexemaact += c;
+                        this.cTokens++;
+                        this.tokens.push(new Token(this.cTokens, this.fila, this.columna, "Cadena", this.lexemaact, "tk_cadena"));
+                        this.lexemaact = "";
+                        this.estado = 0;
+                    }
+                        break;  
                     default:
                         console.log("hola");
                         break;
