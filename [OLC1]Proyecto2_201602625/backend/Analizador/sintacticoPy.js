@@ -820,7 +820,7 @@ class Sintactico{
 
         if (this.TokenCorrecto(this.tokenAux,"tk_coma")){
 
-            this.traduccion = ", ";
+            this.traduccion += ", ";
 
             this.tokenAux = this.SiguienteToken();
             this.Variable();

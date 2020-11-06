@@ -468,7 +468,7 @@ class Lexico{
                         }
                         break;
                     case 13: //numeros decimales
-                        if(isDigit(c)){
+                        if(this.isDigit(c)){
                             this.lexemaact += c;
                             this.estado = 14;
                         } else {
@@ -481,7 +481,7 @@ class Lexico{
                         }
                         break;
                     case 14: //estado aceptacion numeros decimales
-                        if(isDigit(c)){
+                        if(this.isDigit(c)){
                             this.lexemaact += c;
                             this.estado = 14;
                         } else {
